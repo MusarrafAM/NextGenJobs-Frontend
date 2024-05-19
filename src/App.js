@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -7,16 +6,35 @@ import JobInfo from "./pages/JobInfo";
 import PostJob from "./pages/PostJob";
 import Profile from "./pages/Profile";
 
+import { CSSProperties, useEffect } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { loaderReducer } from "./redux/reducers/loaderReducer";
+import { getAllJobs } from "./redux/actions/jobActions";
+
 function App() {
+  const { loader } = useSelector((state) => state.loaderReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllJobs());
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className="App">
+      {loader && (
+        <div className="sweet-loading text-center">
+          <ClipLoader color={"#35CBAE"} size={150} />
+        </div>
+      )}
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
-          <Route path="/jobinfo" element={<JobInfo />} />
           <Route path="/postjob" element={<PostJob />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/jobs/:id" element={<JobInfo />} />
         </Routes>
       </BrowserRouter>
     </div>
