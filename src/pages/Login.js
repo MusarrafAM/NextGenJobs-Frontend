@@ -38,7 +38,7 @@ function Login() {
               name="password"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input type="password"/>
             </Form.Item>
 
             <Button htmlType="submit" className="mb-3">

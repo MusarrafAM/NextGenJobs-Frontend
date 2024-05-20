@@ -35,14 +35,14 @@ function Register() {
               name="password"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input type="password" />
             </Form.Item>
             <Form.Item
               label="confirm password"
               name="confirmpassword"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input type="password" />
             </Form.Item>
             <Button htmlType="submit" className="mb-3">
               Register
