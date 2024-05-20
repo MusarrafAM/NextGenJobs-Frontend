@@ -17,6 +17,8 @@ const DefaultLayout = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Layout>
       <Sider
@@ -72,9 +74,12 @@ const DefaultLayout = ({ children }) => {
             padding: 0,
             background: colorBgContainer,
             position: "sticky",
-            overflow: "hidden",
+            overflow: "auto",
             top: 0,
             zIndex: 9999,
+            display: "flex",
+            justifyContent: "space-between", 
+            alignItems: "center",
           }}
         >
           <Button
@@ -87,6 +92,9 @@ const DefaultLayout = ({ children }) => {
               height: 64,
             }}
           />
+          <h5 className="mr-4">
+            <b>{user.username}</b>
+          </h5>
         </Header>
         <Content
           style={{
