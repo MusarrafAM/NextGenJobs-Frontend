@@ -17,10 +17,12 @@ const DefaultLayout = ({ children }) => {
   } = theme.useToken();
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}
-      style={{position: 'sticky' , overflow : 'auto' , height:'100%' , top:0}}
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ position: "sticky", overflow: "auto", height: "100%", top: 0 }}
       >
-
         <div className="demo-logo-vertical">
           {collapsed ? <h1>NGJ</h1> : <h1>NextGenJ</h1>}
         </div>
@@ -49,6 +51,11 @@ const DefaultLayout = ({ children }) => {
               icon: <VideoCameraOutlined />,
               label: <Link to={"/postjob"}>PostJob</Link>,
             },
+            {
+              key: "/logout",
+              icon: <VideoCameraOutlined />,
+              label: <Link to={"/login"}>Logout</Link>,
+            },
           ]}
         />
       </Sider>
@@ -57,7 +64,10 @@ const DefaultLayout = ({ children }) => {
           style={{
             padding: 0,
             background: colorBgContainer,
-            position: 'sticky' , overflow : 'hidden' , top:0, zIndex:9999
+            position: "sticky",
+            overflow: "hidden",
+            top: 0,
+            zIndex: 9999,
           }}
         >
           <Button

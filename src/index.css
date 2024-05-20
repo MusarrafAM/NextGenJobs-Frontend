@@ -73,3 +73,7 @@ p {
   background-color: #001529 !important;
   color: white !important;
 } */
+
+.login, .register {
+  padding-top: 150px;
+}
