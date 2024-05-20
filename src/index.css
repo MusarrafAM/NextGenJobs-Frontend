@@ -74,6 +74,17 @@ p {
   color: white !important;
 } */
 
-.login, .register {
+.login,
+.register {
   padding-top: 150px;
+}
+
+input,
+.ant-input {
+  border: 1px solid #001529;
+  box-shadow: none;
+}
+
+.ant-message {
+  z-index: 9999;
 }

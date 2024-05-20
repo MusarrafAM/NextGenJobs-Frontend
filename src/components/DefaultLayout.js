@@ -5,6 +5,8 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  HomeOutlined,
+  LogoutOutlined
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -33,12 +35,12 @@ const DefaultLayout = ({ children }) => {
           items={[
             {
               key: "/",
-              icon: <UserOutlined />,
+              icon: <HomeOutlined />,
               label: <Link to={"/"}>Home</Link>,
             },
             {
               key: "/profile",
-              icon: <VideoCameraOutlined />,
+              icon: <UserOutlined />,
               label: <Link to={"/profile"}>Profile</Link>,
             },
             {
@@ -53,7 +55,7 @@ const DefaultLayout = ({ children }) => {
             },
             {
               key: "/logout",
-              icon: <VideoCameraOutlined />,
+              icon: <LogoutOutlined />,
               label: <Link to={"/login"}>Logout</Link>,
             },
           ]}
