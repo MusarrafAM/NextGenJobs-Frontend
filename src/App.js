@@ -13,6 +13,7 @@ import { loaderReducer } from "./redux/reducers/loaderReducer";
 import { getAllJobs } from "./redux/actions/jobActions";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import PostedJobs from "./pages/PostedJobs";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -34,8 +35,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
-          <Route path="/postjob" element={<PostJob />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/postjob" element={<PostJob />} />
+          <Route path="/posted" element={<PostedJobs />} />
           <Route path="/jobs/:id" element={<JobInfo />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

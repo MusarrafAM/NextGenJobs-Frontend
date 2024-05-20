@@ -6,7 +6,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   HomeOutlined,
-  LogoutOutlined
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -52,6 +52,11 @@ const DefaultLayout = ({ children }) => {
               key: "/postjob",
               icon: <VideoCameraOutlined />,
               label: <Link to={"/postjob"}>PostJob</Link>,
+            },
+            {
+              key: "/posted",
+              icon: <VideoCameraOutlined />,
+              label: <Link to={"/posted"}>posted</Link>,
             },
             {
               key: "/logout",
