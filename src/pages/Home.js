@@ -14,7 +14,7 @@ const Home = () => {
       {/* gutter is like gap */}
         <Row gutter={16}>
           {jobs.map((job) => {
-           return <Col lg={12} sm={24}>
+           return <Col lg={12} sm={24} key={job._id}>
                 <div className="job-div bs m-2 p-2">
                    <h4>{job.title}</h4>
                    <p>{job.company}</p>
