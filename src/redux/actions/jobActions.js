@@ -32,3 +32,20 @@ export const postJob = (values) => async (dispatch) => {
     dispatch({ type: "LOADING", payload: false });
   }
 };
+
+export const editJob = (values) => async (dispatch) => {
+  dispatch({ type: "LOADING", payload: true });
+  try {
+    const response = await axios.post("/api/jobs/editjob", values);
+
+    dispatch({ type: "LOADING", payload: false });
+    message.success("Job Updated Successfully");
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "LOADING", payload: false });
+  }
+};
