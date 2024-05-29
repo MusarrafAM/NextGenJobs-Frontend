@@ -1,16 +1,28 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import DefaultLayout from "../components/DefaultLayout";
 import jobsReducer from "../redux/reducers/jobsReducer";
 import moment from "moment";
-import { Button } from "antd";
+import { Button, Tag } from "antd";
+import { applyJob } from "../redux/actions/jobActions";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 const JobInfo = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { jobs } = useSelector((state) => state.jobsReducer); //getting all Jobs
-  const job = jobs.find((job) => job._id == id);
+  const job = jobs.find((job) => job._id === id);
   const userid = JSON.parse(localStorage.getItem("user"))._id;
+
+  const appliedCandidates = job?.appliedCandidates || [];
+  const alreadyApplied = appliedCandidates.find(
+    (candidate) => candidate.userid === userid
+  );
+
+  function applyNow() {
+    dispatch(applyJob(job));
+  }
 
   return (
     <div>
@@ -63,10 +75,14 @@ const JobInfo = () => {
             <div className="flex justify-content-between">
               {job.postedBy === userid ? (
                 <Button>
-                  <Link to={`/editjob/${job._id}`}>Edit now</Link>
+                  <Link to={`/editjob/${job._id}`}>Edit Now</Link>
                 </Button>
+              ) : alreadyApplied ? (
+                <Tag icon={<CheckCircleOutlined />} color="success">
+                  Already Applied
+                </Tag>
               ) : (
-                <Button>Apply Now</Button>
+                <Button onClick={applyNow}>Apply Now</Button>
               )}
 
               <p>
