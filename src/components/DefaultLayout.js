@@ -19,6 +19,10 @@ const DefaultLayout = ({ children }) => {
   } = theme.useToken();
   const user = JSON.parse(localStorage.getItem("user"));
 
+  function logout() {
+    localStorage.removeItem("user");
+  }
+
   return (
     <Layout>
       <Sider
@@ -63,7 +67,11 @@ const DefaultLayout = ({ children }) => {
             {
               key: "/logout",
               icon: <LogoutOutlined />,
-              label: <Link to={"/login"}>Logout</Link>,
+              label: (
+                <Link to={"/login"} onClick={logout}>
+                  Logout
+                </Link>
+              ),
             },
           ]}
         />
@@ -78,7 +86,7 @@ const DefaultLayout = ({ children }) => {
             top: 0,
             zIndex: 9999,
             display: "flex",
-            justifyContent: "space-between", 
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >

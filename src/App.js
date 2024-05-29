@@ -9,12 +9,13 @@ import Profile from "./pages/Profile";
 import { useEffect } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
-import { loaderReducer } from "./redux/reducers/loaderReducer";
+// import { loaderReducer } from "./redux/reducers/loaderReducer";
 import { getAllJobs } from "./redux/actions/jobActions";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PostedJobs from "./pages/PostedJobs";
 import EditJob from "./pages/EditJob";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -34,15 +35,18 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/appliedjobs" element={<AppliedJobs />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/postjob" element={<PostJob />} />
-          <Route path="/posted" element={<PostedJobs />} />
-          <Route path="/jobs/:id" element={<JobInfo />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/appliedjobs" element={<AppliedJobs />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/postjob" element={<PostJob />} />
+            <Route path="/posted" element={<PostedJobs />} />
+            <Route path="/jobs/:id" element={<JobInfo />} />
+            <Route path="/editjob/:id" element={<EditJob />} />
+          </Route>
+          {/* Not Protected */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/editjob/:id" element={<EditJob />} />
         </Routes>
       </BrowserRouter>
     </div>
