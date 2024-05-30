@@ -54,3 +54,15 @@ export const updateUser = (values) => async (dispatch) => {
     dispatch({ type: "LOADING", payload: false });
   }
 };
+
+export const getAllUsers = () => async (dispatch) => {
+  dispatch({ type: "LOADING", payload: true });
+  try {
+    const response = await axios.get("/api/users/getallusers");
+    dispatch({ type: "GET_ALL_USERS", payload: response.data });
+    dispatch({ type: "LOADING", payload: false });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "LOADING", payload: false });
+  }
+};

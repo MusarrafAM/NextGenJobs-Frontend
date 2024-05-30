@@ -16,6 +16,8 @@ import Login from "./pages/Login";
 import PostedJobs from "./pages/PostedJobs";
 import EditJob from "./pages/EditJob";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import { getAllUsers } from "./redux/actions/userActions";
+import UserInfo from "./pages/UserInfo";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -23,6 +25,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllJobs());
+    dispatch(getAllUsers());
     // eslint-disable-next-line
   }, []);
   return (
@@ -41,8 +44,9 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/postjob" element={<PostJob />} />
             <Route path="/posted" element={<PostedJobs />} />
-            <Route path="/jobs/:id" element={<JobInfo />} />
             <Route path="/editjob/:id" element={<EditJob />} />
+            <Route path="/jobs/:id" element={<JobInfo />} />
+            <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
           <Route path="/register" element={<Register />} />
