@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
+import Filter from "./Filter";
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = ({ children }) => {
@@ -17,6 +18,7 @@ const DefaultLayout = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   function logout() {
@@ -100,6 +102,9 @@ const DefaultLayout = ({ children }) => {
               height: 64,
             }}
           />
+
+          <Filter />
+
           <h5 className="mr-4">
             <b>{user.username}</b>
           </h5>

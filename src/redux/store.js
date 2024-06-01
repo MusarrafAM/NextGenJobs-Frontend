@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 // See @redux-devtools/extension doc if need help
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk)) // Confuguer redux-devtools/extensio and apply middleware Thunk
+  composeWithDevTools(applyMiddleware(thunk)) // Confuguer redux-devtools/extension and apply middleware Thunk
 );
 
 export default store;

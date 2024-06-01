@@ -88,3 +88,7 @@ input,
 .ant-message {
   z-index: 9999;
 }
+
+.anticon {
+  height: 33px !important;
+}
