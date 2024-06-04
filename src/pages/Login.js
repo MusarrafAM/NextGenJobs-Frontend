@@ -22,7 +22,7 @@ function Login() {
           </h1>
         </Col> */}
         <Col lg={10} sm={24} className="bs p-5 login-form">
-          <h3>Login</h3>
+          <h3>Logina</h3>
           <hr />
           <Form layout="vertical" onFinish={login}>
             <Form.Item
