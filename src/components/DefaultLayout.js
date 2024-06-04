@@ -4,9 +4,11 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  AppstoreOutlined,
   HomeOutlined,
+  PlusOutlined,
   LogoutOutlined,
+  CheckOutlined
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -53,17 +55,17 @@ const DefaultLayout = ({ children }) => {
             },
             {
               key: "/appliedjobs",
-              icon: <UploadOutlined />,
+              icon: <AppstoreOutlined />,
               label: <Link to={"/appliedjobs"}>Applied Jobs</Link>,
             },
             {
               key: "/postjob",
-              icon: <VideoCameraOutlined />,
+              icon: <PlusOutlined />,
               label: <Link to={"/postjob"}>PostJob</Link>,
             },
             {
               key: "/posted",
-              icon: <VideoCameraOutlined />,
+              icon: <CheckOutlined />,
               label: <Link to={"/posted"}>posted</Link>,
             },
             {

@@ -18,7 +18,7 @@ function Register() {
   return (
     <div className="register">
       <Row justify="center" className="flex align-items-center">
-        {/* <Col lg={5}><h1 className="heading1" data-aos='slide-right'>NextGen</h1></Col> */}
+        <Col lg={5}><h1 className="heading1" data-aos='slide-right'>NextGen</h1></Col>
         <Col lg={10} sm={24} className="bs p-5 register-form">
           <h3>Register</h3>
           <hr />
@@ -53,11 +53,11 @@ function Register() {
             </Link>
           </Form>
         </Col>
-        {/* <Col lg={5}>
+        <Col lg={5}>
           <h1 className="heading2" data-aos="slide-left">
             Jobs
           </h1>
-        </Col> */}
+        </Col>
       </Row>
     </div>
   );
