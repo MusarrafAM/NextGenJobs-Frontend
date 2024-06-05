@@ -1,8 +1,9 @@
 import React from "react";
-import { Row, Col, Form, Input, Button, message } from "antd";
+import { Row, Col, Form, Input, Button, message, Select } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions/userActions";
+const { Option } = Select;
 
 function Register() {
   const dispatch = useDispatch();
@@ -44,6 +45,20 @@ function Register() {
             >
               <Input type="password" />
             </Form.Item>
+
+
+            <Form.Item
+                    name="userType"
+                    rules={[{ required: true }]}
+                    label="User Type"
+                  >
+                    <Select>
+                      <Option value="jobseeker">Job Seeker</Option>
+                      <Option value="jobposter">Job Poster</Option>
+                    </Select>
+                  </Form.Item>
+
+          
             <Button htmlType="submit" className="mb-3">
               Register
             </Button>{" "}
