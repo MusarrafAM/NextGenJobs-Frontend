@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
   UserOutlined,
   AppstoreOutlined,
   HomeOutlined,
   PlusOutlined,
   LogoutOutlined,
-  CheckOutlined
+  CheckOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -42,43 +41,34 @@ const DefaultLayout = ({ children }) => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[window.location.pathname]} //defaultSelectedKeys = will choose which to highight
-          items={[
-            {
-              key: "/",
-              icon: <HomeOutlined />,
-              label: <Link to={"/"}>Home</Link>,
-            },
-            {
-              key: "/profile",
-              icon: <UserOutlined />,
-              label: <Link to={"/profile"}>Profile</Link>,
-            },
-            {
-              key: "/appliedjobs",
-              icon: <AppstoreOutlined />,
-              label: <Link to={"/appliedjobs"}>Applied Jobs</Link>,
-            },
-            {
-              key: "/postjob",
-              icon: <PlusOutlined />,
-              label: <Link to={"/postjob"}>PostJob</Link>,
-            },
-            {
-              key: "/posted",
-              icon: <CheckOutlined />,
-              label: <Link to={"/posted"}>posted</Link>,
-            },
-            {
-              key: "/logout",
-              icon: <LogoutOutlined />,
-              label: (
-                <Link to={"/login"} onClick={logout}>
-                  Logout
-                </Link>
-              ),
-            },
-          ]}
-        />
+        >
+          <Menu.Item key="/" icon={<HomeOutlined />}>
+            <Link to={"/"}>Home</Link>
+          </Menu.Item>
+          {user.userType === "jobseeker" && (
+            <>
+              <Menu.Item key="/profile" icon={<UserOutlined />}>
+                <Link to={"/profile"}>Profile</Link>
+              </Menu.Item>
+              <Menu.Item key="/appliedjobs" icon={<AppstoreOutlined />}>
+                <Link to={"/appliedjobs"}>Applied Jobs</Link>
+              </Menu.Item>
+            </>
+          )}
+          {user.userType === "jobposter" && (
+            <>
+              <Menu.Item key="/postjob" icon={<PlusOutlined />}>
+                <Link to={"/postjob"}>Post Job</Link>
+              </Menu.Item>
+              <Menu.Item key="/posted" icon={<CheckOutlined />}>
+                <Link to={"/posted"}>Posted</Link>
+              </Menu.Item>
+            </>
+          )}
+          <Menu.Item key="/logout" icon={<LogoutOutlined />} onClick={logout}>
+            <Link to={"/login"}>Logout</Link>
+          </Menu.Item>
+        </Menu>
       </Sider>
       <Layout>
         <Header

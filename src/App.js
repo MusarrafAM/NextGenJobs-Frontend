@@ -28,6 +28,19 @@ function App() {
     dispatch(getAllUsers());
     // eslint-disable-next-line
   }, []);
+
+  const user = JSON.parse(localStorage.getItem("user")); //getting userdetails from localstorage.
+
+  // Create a component later
+  function NotFound() { 
+    return (
+      <div>
+        <h1>404 - Not Found</h1>
+        <p>Sorry, the page you are looking for does not exist.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       {loader && (
@@ -40,17 +53,26 @@ function App() {
         <Routes>
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
-            <Route path="/appliedjobs" element={<AppliedJobs />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/postjob" element={<PostJob />} />
-            <Route path="/posted" element={<PostedJobs />} />
-            <Route path="/editjob/:id" element={<EditJob />} />
+            {user && user.userType === "jobseeker" && (
+              <>
+                <Route path="/appliedjobs" element={<AppliedJobs />} />
+                <Route path="/profile" element={<Profile />} />
+              </>
+            )}
+            {user && user.userType === "jobposter" && (
+              <>
+                <Route path="/postjob" element={<PostJob />} />
+                <Route path="/posted" element={<PostedJobs />} />
+                <Route path="/editjob/:id" element={<EditJob />} />
+              </>
+            )}
             <Route path="/jobs/:id" element={<JobInfo />} />
             <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
