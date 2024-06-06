@@ -11,6 +11,7 @@ import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteJob } from "../redux/actions/jobActions";
+import Swal from "sweetalert2";
 
 const PostedJobs = () => {
   const dispatch = useDispatch();
@@ -57,15 +58,34 @@ const PostedJobs = () => {
                 showModal(data.completeJobData);
               }}
             />
+
             <DeleteOutlined
               style={{ fontSize: 20 }}
               onClick={() => {
                 if (data.completeJobData && data.completeJobData._id) {
-                  dispatch(deleteJob(data.completeJobData._id)).catch(
-                    (error) => {
-                      console.error("Error deleting job:", error);
+                  Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      dispatch(deleteJob(data.completeJobData._id)).catch(
+                        (error) => {
+                          console.error("Error deleting job:", error);
+                        }
+                      );
+                      // This is after conirm yes popup no need for now.
+                      // Swal.fire({
+                      //   title: "Deleted!",
+                      //   text: "The job has been deleted succesfully",
+                      //   icon: "success",
+                      // });
                     }
-                  );
+                  });
                 } else {
                   console.error("Job data or job ID is undefined");
                 }
