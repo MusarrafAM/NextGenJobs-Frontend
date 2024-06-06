@@ -8,12 +8,15 @@ import moment from "moment";  // Library to easily work with dates
 const Home = () => {
   const { jobs } = useSelector((state) => state.jobsReducer);
 
+  // Filter jobs array to include only jobs with status === 'approved'
+  const approvedJobs = jobs.filter(job => job.status === 'approved');
+
   return (
     <div>
       <DefaultLayout>
       {/* gutter is like gap */}
         <Row gutter={16}>
-          {jobs.map((job) => {
+          {approvedJobs.map((job) => {
            return <Col lg={12} sm={24} key={job._id}>
                 <div className="job-div bs m-2 p-2">
                    <h4>{job.title}</h4>

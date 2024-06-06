@@ -55,6 +55,15 @@ const ManageJobs = () => {
       dataIndex: "company",
     },
     {
+      title: "Job Id",
+      dataIndex: "jobid",
+      render: (text, data) => {
+        return (
+          <Link to={`/jobs/${data.jobid}`}>{data.jobid}</Link>
+        );
+      },
+    },
+    {
       title: "Posted On",
       dataIndex: "postedOn",
     },
@@ -145,6 +154,7 @@ const ManageJobs = () => {
     company: job.company,
     postedOn: moment(job.createdAt).format("MMM DD yyyy"),
     appliedCandidates: job.appliedCandidates.length,
+    jobid: job._id,
     status: job.status,
     completeJobData: job,
   }));

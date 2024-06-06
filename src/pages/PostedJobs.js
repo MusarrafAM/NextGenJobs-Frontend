@@ -96,6 +96,10 @@ const PostedJobs = () => {
         );
       },
     },
+    {
+      title: "Job Status",
+      dataIndex: "jobstatus",
+    },
   ];
 
   const dataSource = userPostedJobs.map((job) => ({
@@ -104,6 +108,7 @@ const PostedJobs = () => {
     company: job.company,
     postedOn: moment(job.createdAt).format("MMM DD yyyy"),
     appliedCandidates: job.appliedCandidates.length,
+    jobstatus: job.status,
     completeJobData: job,
   }));
 

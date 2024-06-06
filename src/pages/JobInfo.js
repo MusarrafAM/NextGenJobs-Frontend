@@ -14,6 +14,7 @@ const JobInfo = () => {
   const { jobs } = useSelector((state) => state.jobsReducer); //getting all Jobs
   const job = jobs.find((job) => job._id === id);
   const userid = JSON.parse(localStorage.getItem("user"))._id;
+  const userType = JSON.parse(localStorage.getItem("user")).userType;
 
   const appliedCandidates = job?.appliedCandidates || [];
   const alreadyApplied = appliedCandidates.find(
@@ -73,7 +74,7 @@ const JobInfo = () => {
             <hr />
 
             <div className="flex justify-content-between">
-              {job.postedBy === userid ? (
+              {userType === "admin" ? null : job.postedBy === userid ? (
                 <Button>
                   <Link to={`/editjob/${job._id}`}>Edit Now</Link>
                 </Button>
