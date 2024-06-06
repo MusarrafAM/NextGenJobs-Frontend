@@ -18,6 +18,7 @@ import EditJob from "./pages/EditJob";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { getAllUsers } from "./redux/actions/userActions";
 import UserInfo from "./pages/UserInfo";
+import ManageJobs from "./pages/ManageJobs";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -70,6 +71,7 @@ function App() {
             <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
+          <Route path="/ManageJobs" element={<ManageJobs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />

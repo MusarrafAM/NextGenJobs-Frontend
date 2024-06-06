@@ -8,6 +8,7 @@ import {
   PlusOutlined,
   LogoutOutlined,
   CheckOutlined,
+  GroupOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -65,6 +66,11 @@ const DefaultLayout = ({ children }) => {
               </Menu.Item>
             </>
           )}
+
+          <Menu.Item key="/ManageJobs" icon={<GroupOutlined />}>
+            <Link to={"/ManageJobs"}>ManageJobs</Link>
+          </Menu.Item>
+
           <Menu.Item key="/logout" icon={<LogoutOutlined />} onClick={logout}>
             <Link to={"/login"}>Logout</Link>
           </Menu.Item>
