@@ -69,6 +69,23 @@ export const applyJob = (job) => async (dispatch) => {
   }
 };
 
+export const deleteJob = (jobId) => async (dispatch) => {
+  dispatch({ type: "LOADING", payload: true });
+  try {
+    await axios.delete(`/api/jobs/deletejob/${jobId}`);
+
+    // Update the job list after deletion
+    const response = await axios.get("/api/jobs/getalljobs");
+    dispatch({ type: "GET_ALL_JOBS", payload: response.data });
+
+    dispatch({ type: "LOADING", payload: false });
+    message.success("Job deleted Successfully");
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "LOADING", payload: false });
+  }
+};
+
 export const searchJobs = (searchKey) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
   try {
@@ -94,7 +111,6 @@ export const sortJobs = (values) => async (dispatch) => {
     const response = await axios.get("/api/jobs/getalljobs");
 
     const jobs = response.data;
-    
 
     var filteredJobs = jobs;
 
@@ -104,8 +120,6 @@ export const sortJobs = (values) => async (dispatch) => {
     if (values.salary !== undefined) {
       filteredJobs = jobs.filter((job) => job.salaryTo >= values.salary);
     }
-
-    
 
     dispatch({ type: "GET_ALL_JOBS", payload: filteredJobs });
     dispatch({ type: "LOADING", payload: false });

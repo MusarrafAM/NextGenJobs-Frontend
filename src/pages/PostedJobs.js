@@ -3,18 +3,17 @@ import DefaultLayout from "../components/DefaultLayout";
 import { useSelector } from "react-redux";
 import { Table, Modal } from "antd";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  DeleteOutlined,
   EditOutlined,
   OrderedListOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteJob } from "../redux/actions/jobActions";
 
 const PostedJobs = () => {
+  const dispatch = useDispatch();
   const alljobs = useSelector((state) => state.jobsReducer).jobs;
   const allusers = useSelector((state) => state.usersReducer).users;
   const userid = JSON.parse(localStorage.getItem("user"))._id;
@@ -56,6 +55,20 @@ const PostedJobs = () => {
               style={{ fontSize: 20 }}
               onClick={() => {
                 showModal(data.completeJobData);
+              }}
+            />
+            <DeleteOutlined
+              style={{ fontSize: 20 }}
+              onClick={() => {
+                if (data.completeJobData && data.completeJobData._id) {
+                  dispatch(deleteJob(data.completeJobData._id)).catch(
+                    (error) => {
+                      console.error("Error deleting job:", error);
+                    }
+                  );
+                } else {
+                  console.error("Job data or job ID is undefined");
+                }
               }}
             />
           </div>
