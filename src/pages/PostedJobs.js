@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useSelector } from "react-redux";
 import { Table, Modal } from "antd";
@@ -98,18 +98,14 @@ const PostedJobs = () => {
     },
   ];
 
-  const dataSource = [];
-
-  for (let job of userPostedJobs) {
-    let obj = {
-      title: job.title,
-      company: job.company,
-      postedOn: moment(job.createdAt).format("MMM DD yyyy"),
-      appliedCandidates: job.appliedCandidates.length,
-      completeJobData: job,
-    };
-    dataSource.push(obj);
-  }
+  const dataSource = userPostedJobs.map((job) => ({
+    key: job._id,
+    title: job.title,
+    company: job.company,
+    postedOn: moment(job.createdAt).format("MMM DD yyyy"),
+    appliedCandidates: job.appliedCandidates.length,
+    completeJobData: job,
+  }));
 
   const showModal = (job) => {
     setIsModalVisible(true);
@@ -124,8 +120,24 @@ const PostedJobs = () => {
     setIsModalVisible(false);
   };
 
-  function CandidatesList() {
+  const CandidatesList = ({ selectedJob }) => {
     const [candidateStatus, setCandidateStatus] = useState({});
+
+    useEffect(() => {
+      const fetchCandidateStatuses = async () => {
+        try {
+          const response = await axios.get(
+            `/api/jobs/candidatestatuses/${selectedJob._id}`
+          );
+          const { candidateStatuses } = response.data;
+          setCandidateStatus(candidateStatuses);
+        } catch (error) {
+          console.error("Error fetching candidate statuses:", error);
+        }
+      };
+
+      fetchCandidateStatuses();
+    }, [selectedJob]);
 
     const approveCandidate = async (candidateId, jobId) => {
       try {
@@ -185,9 +197,7 @@ const PostedJobs = () => {
         render: (text, data) => (
           <div>
             {/* Conditionally render buttons or status based on candidate status */}
-            {candidateStatus[data.candidateId] ? (
-              <span>{candidateStatus[data.candidateId]}</span>
-            ) : (
+            {candidateStatus[data.candidateId] === "pending" ? (
               <>
                 <button
                   onClick={() =>
@@ -204,32 +214,30 @@ const PostedJobs = () => {
                   Reject
                 </button>
               </>
+            ) : (
+              <span>{candidateStatus[data.candidateId]}</span>
             )}
           </div>
         ),
       },
     ];
 
-    var candidatesDatasource = [];
-
-    for (var candidate of selectedJob.appliedCandidates) {
-      var user = allusers.find((user) => user._id == candidate.userid);
-      console.log(user);
-
-      var obj = {
-        candidateId: user._id,
-        fullName: user.firstName + " " + user.lastName,
-        appliedDate: candidate.appliedDate,
-        status: null,
-      };
-
-      candidatesDatasource.push(obj);
-    }
+    const candidatesDataSource = selectedJob.appliedCandidates.map(
+      (candidate) => {
+        const user = allusers.find((user) => user._id === candidate.userid);
+        return {
+          key: candidate.userid,
+          candidateId: user._id,
+          fullName: `${user.firstName} ${user.lastName}`,
+          appliedDate: moment(candidate.appliedDate).format("MMM DD, YYYY"),
+        };
+      }
+    );
 
     return (
-      <Table columns={candidatesColumns} dataSource={candidatesDatasource} />
+      <Table columns={candidatesColumns} dataSource={candidatesDataSource} />
     );
-  }
+  };
 
   return (
     <div>
@@ -240,12 +248,11 @@ const PostedJobs = () => {
         <Modal
           title="Applied Candidates List"
           visible={isModalVisible}
-          // closable={false}
           onOk={handleOk}
           onCancel={handleCancel}
           width={800}
         >
-          <CandidatesList />
+          <CandidatesList selectedJob={selectedJob} />
         </Modal>
       </DefaultLayout>
     </div>
