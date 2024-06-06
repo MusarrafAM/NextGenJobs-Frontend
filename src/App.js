@@ -33,7 +33,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem("user")); //getting userdetails from localstorage.
 
   // Create a component later
-  function NotFound() { 
+  function NotFound() {
     return (
       <div>
         <h1>404 - Not Found</h1>
@@ -67,11 +67,18 @@ function App() {
                 <Route path="/editjob/:id" element={<EditJob />} />
               </>
             )}
+
+            {user && user.userType === "admin" && (
+              <>
+                <Route path="/ManageJobs" element={<ManageJobs />} />
+              </>
+            )}
+
+            {/* All Can see these below routes */}
             <Route path="/jobs/:id" element={<JobInfo />} />
             <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
-          <Route path="/ManageJobs" element={<ManageJobs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />

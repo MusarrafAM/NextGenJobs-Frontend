@@ -67,9 +67,13 @@ const DefaultLayout = ({ children }) => {
             </>
           )}
 
-          <Menu.Item key="/ManageJobs" icon={<GroupOutlined />}>
-            <Link to={"/ManageJobs"}>ManageJobs</Link>
-          </Menu.Item>
+          {user.userType === "admin" && (
+            <>
+              <Menu.Item key="/ManageJobs" icon={<GroupOutlined />}>
+                <Link to={"/ManageJobs"}>ManageJobs</Link>
+              </Menu.Item>
+            </>
+          )}
 
           <Menu.Item key="/logout" icon={<LogoutOutlined />} onClick={logout}>
             <Link to={"/login"}>Logout</Link>
