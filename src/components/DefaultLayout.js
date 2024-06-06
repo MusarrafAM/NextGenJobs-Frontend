@@ -97,9 +97,12 @@ const DefaultLayout = ({ children }) => {
 
           <Filter />
 
-          <h5 className="mr-4">
-            <b>{user.username}</b>
-          </h5>
+          <div className="mr-4 userinfo-top">
+            <h5 className="text-center">
+              <b>{user.username}</b>
+              <p>{user.userType}</p>
+            </h5>
+          </div>
         </Header>
         <Content
           style={{
