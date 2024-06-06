@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteJob } from "../redux/actions/jobActions";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const PostedJobs = () => {
   const dispatch = useDispatch();
@@ -124,6 +125,45 @@ const PostedJobs = () => {
   };
 
   function CandidatesList() {
+    const [candidateStatus, setCandidateStatus] = useState({});
+
+    const approveCandidate = async (candidateId, jobId) => {
+      try {
+        await axios.post("/api/jobs/updatecandidatestatus", {
+          candidateId,
+          jobId,
+          status: "Approved",
+        });
+        console.log("Candidate approved successfully");
+
+        // Optionally, you can handle state update or UI changes here
+        setCandidateStatus((prevStatus) => ({
+          ...prevStatus,
+          [candidateId]: "Approved",
+        }));
+      } catch (error) {
+        console.error("Error approving candidate:", error);
+      }
+    };
+
+    const rejectCandidate = async (candidateId, jobId) => {
+      try {
+        await axios.post("/api/jobs/updatecandidatestatus", {
+          candidateId,
+          jobId,
+          status: "Rejected",
+        });
+        console.log("Candidate rejected successfully");
+        // Optionally, you can handle state update or UI changes here
+        setCandidateStatus((prevStatus) => ({
+          ...prevStatus,
+          [candidateId]: "Rejected",
+        }));
+      } catch (error) {
+        console.error("Error rejecting candidate:", error);
+      }
+    };
+
     const candidatesColumns = [
       {
         title: "Candidate Id",
@@ -139,6 +179,35 @@ const PostedJobs = () => {
         dataIndex: "fullName",
       },
       { title: "Applied Date", dataIndex: "appliedDate" },
+      {
+        title: "Actions",
+        dataIndex: "actions",
+        render: (text, data) => (
+          <div>
+            {/* Conditionally render buttons or status based on candidate status */}
+            {candidateStatus[data.candidateId] ? (
+              <span>{candidateStatus[data.candidateId]}</span>
+            ) : (
+              <>
+                <button
+                  onClick={() =>
+                    approveCandidate(data.candidateId, selectedJob._id)
+                  }
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() =>
+                    rejectCandidate(data.candidateId, selectedJob._id)
+                  }
+                >
+                  Reject
+                </button>
+              </>
+            )}
+          </div>
+        ),
+      },
     ];
 
     var candidatesDatasource = [];
@@ -151,6 +220,7 @@ const PostedJobs = () => {
         candidateId: user._id,
         fullName: user.firstName + " " + user.lastName,
         appliedDate: candidate.appliedDate,
+        status: null,
       };
 
       candidatesDatasource.push(obj);

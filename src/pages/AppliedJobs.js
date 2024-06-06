@@ -21,6 +21,7 @@ function AppliedJobs() {
         title: job.title,
         company: job.company,
         appliedDate: temp.appliedDate,
+        status:temp.status
       };
 
       userAppliedJobs.push(obj);
@@ -39,6 +40,10 @@ function AppliedJobs() {
     {
       title: "Applied Date",
       dataIndex: "appliedDate",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
     },
   ];
 
