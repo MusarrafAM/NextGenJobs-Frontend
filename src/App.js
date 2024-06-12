@@ -15,7 +15,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PostedJobs from "./pages/PostedJobs";
 import EditJob from "./pages/EditJob";
-import Analytics from "./pages/Analytics"
+import Analytics from "./pages/Analytics";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { getAllUsers } from "./redux/actions/userActions";
 import UserInfo from "./pages/UserInfo";
@@ -75,12 +75,13 @@ function App() {
               </>
             )}
 
+            {user && <Route path="/analytics" element={<Analytics />} />}
+
             {/* All Can see these below routes */}
             <Route path="/jobs/:id" element={<JobInfo />} />
             <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
-          <Route path="/analytics" element={<Analytics />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
