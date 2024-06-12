@@ -9,6 +9,7 @@ import {
   LogoutOutlined,
   CheckOutlined,
   GroupOutlined,
+  LineChartOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
@@ -74,6 +75,10 @@ const DefaultLayout = ({ children }) => {
               </Menu.Item>
             </>
           )}
+
+          <Menu.Item key="/analytics" icon={<LineChartOutlined />}>
+            <Link to={"/analytics"}>Analytics</Link>
+          </Menu.Item>
 
           <Menu.Item key="/logout" icon={<LogoutOutlined />} onClick={logout}>
             <Link to={"/login"}>Logout</Link>

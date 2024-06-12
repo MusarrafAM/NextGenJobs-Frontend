@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PostedJobs from "./pages/PostedJobs";
 import EditJob from "./pages/EditJob";
+import Analytics from "./pages/Analytics"
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { getAllUsers } from "./redux/actions/userActions";
 import UserInfo from "./pages/UserInfo";
@@ -79,6 +80,7 @@ function App() {
             <Route path="/users/:id" element={<UserInfo />} />
           </Route>
           {/* Not Protected */}
+          <Route path="/analytics" element={<Analytics />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
