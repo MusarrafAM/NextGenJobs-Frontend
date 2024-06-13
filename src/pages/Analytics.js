@@ -1,7 +1,9 @@
 import DefaultLayout from "../components/DefaultLayout";
+import { useSelector } from "react-redux";
 
 import { Chart as ChartJS, defaults } from "chart.js/auto";
-import { Bar, Doughnut, Line } from "react-chartjs-2";
+import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
+import generateColors from "../utils/generateColors";
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -86,6 +88,59 @@ const revenueData = [
 ];
 
 const Analytics = () => {
+  const { jobs } = useSelector((state) => state.jobsReducer);
+  // Admin
+  const AdminApprovedJobs = jobs.filter((job) => job.status === "approved");
+  const AdminRejectedJobs = jobs.filter((job) => job.status === "rejected");
+  const AdminPendingJobs = jobs.filter((job) => job.status === "pending");
+
+  const numColors = AdminApprovedJobs.length;
+  const backgroundColors = generateColors(numColors);
+
+  // Admin
+  const sourceDataAdminJobStatus = [
+    {
+      label: "Total Jobs",
+      value: jobs.length,
+      color: "rgba(43, 63, 229, 0.8)",
+      // color: "rgba(128, 128, 128, 0.8)",
+    },
+    {
+      label: "Approved",
+      value: AdminApprovedJobs.length,
+      color: "rgba(46, 204, 113, 0.8)", // Green
+    },
+    {
+      label: "Pending",
+      value: AdminPendingJobs.length,
+      color: "rgba(241, 196, 15, 0.8)", // Yellow
+    },
+    {
+      label: "Rejected",
+      value: AdminRejectedJobs.length,
+      color: "rgba(231, 76, 60, 0.8)", // Red
+    },
+  ];
+
+  // Count occurrences of approved each job title
+  const jobCounts = {};
+  AdminApprovedJobs.forEach((job) => {
+    const title = job.title;
+    if (jobCounts[title]) {
+      jobCounts[title]++;
+    } else {
+      jobCounts[title] = 1;
+    }
+  });
+
+  // Convert jobCounts object to the desired array format
+  const sourceDataAdminApprovedJobCounts = Object.keys(jobCounts).map(
+    (title) => ({
+      label: title,
+      value: jobCounts[title],
+    })
+  );
+
   return (
     <DefaultLayout>
       <div className="Analytics">
@@ -126,16 +181,14 @@ const Analytics = () => {
         <div className="dataCard customerCard">
           <Bar
             data={{
-              labels: sourceData.map((data) => data.label),
+              labels: sourceDataAdminJobStatus.map((data) => data.label),
               datasets: [
                 {
                   label: "Count",
-                  data: sourceData.map((data) => data.value),
-                  backgroundColor: [
-                    "rgba(43, 63, 229, 0.8)",
-                    "rgba(250, 192, 19, 0.8)",
-                    "rgba(253, 135, 135, 0.8)",
-                  ],
+                  data: sourceDataAdminJobStatus.map((data) => data.value),
+                  backgroundColor: sourceDataAdminJobStatus.map(
+                    (data) => data.color
+                  ),
                   borderRadius: 5,
                 },
               ],
@@ -153,28 +206,25 @@ const Analytics = () => {
         <div className="dataCard categoryCard">
           <Doughnut
             data={{
-              labels: sourceData.map((data) => data.label),
+              labels: sourceDataAdminApprovedJobCounts.map(
+                (data) => data.label
+              ),
               datasets: [
                 {
                   label: "Count",
-                  data: sourceData.map((data) => data.value),
-                  backgroundColor: [
-                    "rgba(43, 63, 229, 0.8)",
-                    "rgba(250, 192, 19, 0.8)",
-                    "rgba(253, 135, 135, 0.8)",
-                  ],
-                  borderColor: [
-                    "rgba(43, 63, 229, 0.8)",
-                    "rgba(250, 192, 19, 0.8)",
-                    "rgba(253, 135, 135, 0.8)",
-                  ],
+                  data: sourceDataAdminApprovedJobCounts.map(
+                    (data) => data.value
+                  ),
+                  backgroundColor: backgroundColors,
+                  borderColor: backgroundColors,
                 },
               ],
             }}
             options={{
               plugins: {
                 title: {
-                  text: "Revenue Sources",
+                  // display: true,
+                  text: "Jobs posted",
                 },
               },
             }}
