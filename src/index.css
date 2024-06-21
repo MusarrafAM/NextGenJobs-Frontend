@@ -161,17 +161,17 @@ input,
   padding: 1em;
 }
 
-.revenueCard {
+.lineChart {
   width: 92%;
   height: 20rem;
 }
 
-.customerCard {
+.barChart {
   width: 50%;
   height: 20rem;
 }
 
-.categoryCard {
+.allPostedJobsPieCHart {
   width: 40%;
   height: 20rem;
 }

@@ -2,93 +2,16 @@ import DefaultLayout from "../components/DefaultLayout";
 import { useSelector } from "react-redux";
 
 import { Chart as ChartJS, defaults } from "chart.js/auto";
-import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import generateColors from "../utils/generateColors";
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
-// data
-const sourceData = [
-  {
-    label: "Ads",
-    value: 32,
-  },
-  {
-    label: "Subscriptions",
-    value: 45,
-  },
-  {
-    label: "Sponsorships",
-    value: 23,
-  },
-];
-
-const revenueData = [
-  {
-    label: "Jan",
-    revenue: 64854,
-    cost: 32652,
-  },
-  {
-    label: "Feb",
-    revenue: 54628,
-    cost: 42393,
-  },
-  {
-    label: "Mar",
-    revenue: 117238,
-    cost: 50262,
-  },
-  {
-    label: "Apr",
-    revenue: 82830,
-    cost: 64731,
-  },
-  {
-    label: "May",
-    revenue: 91208,
-    cost: 41893,
-  },
-  {
-    label: "Jun",
-    revenue: 103609,
-    cost: 83809,
-  },
-  {
-    label: "Jul",
-    revenue: 90974,
-    cost: 44772,
-  },
-  {
-    label: "Aug",
-    revenue: 82919,
-    cost: 37590,
-  },
-  {
-    label: "Sep",
-    revenue: 62407,
-    cost: 43349,
-  },
-  {
-    label: "Oct",
-    revenue: 82528,
-    cost: 45324,
-  },
-  {
-    label: "Nov",
-    revenue: 56979,
-    cost: 47978,
-  },
-  {
-    label: "Dec",
-    revenue: 87436,
-    cost: 39175,
-  },
-];
-
 const Analytics = () => {
   const { jobs } = useSelector((state) => state.jobsReducer);
+  const userType = JSON.parse(localStorage.getItem("user")).userType;
+
   // Admin
   const AdminApprovedJobs = jobs.filter((job) => job.status === "approved");
   const AdminRejectedJobs = jobs.filter((job) => job.status === "rejected");
@@ -103,7 +26,6 @@ const Analytics = () => {
       label: "Total Jobs",
       value: jobs.length,
       color: "rgba(43, 63, 229, 0.8)",
-      // color: "rgba(128, 128, 128, 0.8)",
     },
     {
       label: "Approved",
@@ -141,25 +63,77 @@ const Analytics = () => {
     })
   );
 
+  // linechart data
+  // Function to get month name from month number
+  const getMonthName = (monthNum) => {
+    switch (monthNum) {
+      case "01":
+        return "Jan";
+      case "02":
+        return "Feb";
+      case "03":
+        return "Mar";
+      case "04":
+        return "Apr";
+      case "05":
+        return "May";
+      case "06":
+        return "Jun";
+      case "07":
+        return "Jul";
+      case "08":
+        return "Aug";
+      case "09":
+        return "Sep";
+      case "10":
+        return "Oct";
+      case "11":
+        return "Nov";
+      case "12":
+        return "Dec";
+      default:
+        return "";
+    }
+  };
+
+  // Prepare data for line chart (monthly approved jobs)
+  const monthlyData = {
+    Jan: 0,
+    Feb: 0,
+    Mar: 0,
+    Apr: 0,
+    May: 0,
+    Jun: 0,
+    Jul: 0,
+    Aug: 0,
+    Sep: 0,
+    Oct: 0,
+    Nov: 0,
+    Dec: 0,
+  };
+
+  AdminApprovedJobs.forEach((job) => {
+    const month = job.createdAt.substring(5, 7); // Extract month from createdAt
+    monthlyData[getMonthName(month)]++; // Increment count for the respective month
+  });
+
+  // Convert monthlyData object to arrays for chart data
+  const lineLabels = Object.keys(monthlyData);
+  const lineData = Object.values(monthlyData);
+
   return (
     <DefaultLayout>
       <div className="Analytics">
-        <div className="dataCard revenueCard">
+        <div className="dataCard lineChart">
           <Line
             data={{
-              labels: revenueData.map((data) => data.label),
+              labels: lineLabels,
               datasets: [
                 {
-                  label: "Revenue",
-                  data: revenueData.map((data) => data.revenue),
+                  label: "Posted Jobs Count",
+                  data: lineData,
                   backgroundColor: "#064FF0",
                   borderColor: "#064FF0",
-                },
-                {
-                  label: "Cost",
-                  data: revenueData.map((data) => data.cost),
-                  backgroundColor: "#FF3030",
-                  borderColor: "#FF3030",
                 },
               ],
             }}
@@ -171,39 +145,41 @@ const Analytics = () => {
               },
               plugins: {
                 title: {
-                  text: "Monthly Revenue & Cost",
+                  text: "Posted Jobs by Month",
                 },
               },
             }}
           />
         </div>
 
-        <div className="dataCard customerCard">
-          <Bar
-            data={{
-              labels: sourceDataAdminJobStatus.map((data) => data.label),
-              datasets: [
-                {
-                  label: "Count",
-                  data: sourceDataAdminJobStatus.map((data) => data.value),
-                  backgroundColor: sourceDataAdminJobStatus.map(
-                    (data) => data.color
-                  ),
-                  borderRadius: 5,
+        {userType === "admin" && (
+          <div className="dataCard barChart">
+            <Bar
+              data={{
+                labels: sourceDataAdminJobStatus.map((data) => data.label),
+                datasets: [
+                  {
+                    label: "Count",
+                    data: sourceDataAdminJobStatus.map((data) => data.value),
+                    backgroundColor: sourceDataAdminJobStatus.map(
+                      (data) => data.color
+                    ),
+                    borderRadius: 5,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    text: "Revenue Source",
+                  },
                 },
-              ],
-            }}
-            options={{
-              plugins: {
-                title: {
-                  text: "Revenue Source",
-                },
-              },
-            }}
-          />
-        </div>
+              }}
+            />
+          </div>
+        )}
 
-        <div className="dataCard categoryCard">
+        <div className="dataCard allPostedJobsPieCHart">
           <Doughnut
             data={{
               labels: sourceDataAdminApprovedJobCounts.map(
