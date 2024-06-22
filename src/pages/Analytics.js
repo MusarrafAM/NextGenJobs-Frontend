@@ -17,6 +17,18 @@ const Analytics = () => {
   const AdminRejectedJobs = jobs.filter((job) => job.status === "rejected");
   const AdminPendingJobs = jobs.filter((job) => job.status === "pending");
 
+  //Jobseeker
+  const UserAppliedJobs = JSON.parse(localStorage.getItem("user")).appliedJobs;
+  const userSelectedJobs = UserAppliedJobs.filter(
+    (job) => job.status === "Approved"
+  );
+  const userRejectedJobs = UserAppliedJobs.filter(
+    (job) => job.status === "Rejected"
+  );
+  const userPendingJobs = UserAppliedJobs.filter(
+    (job) => job.status === "pending"
+  );
+
   const numColors = AdminApprovedJobs.length;
   const backgroundColors = generateColors(numColors);
 
@@ -40,6 +52,30 @@ const Analytics = () => {
     {
       label: "Rejected",
       value: AdminRejectedJobs.length,
+      color: "rgba(231, 76, 60, 0.8)", // Red
+    },
+  ];
+
+  //JobSeeker
+  const sourceDataJobSeekerJobStatus = [
+    {
+      label: "Applications sent",
+      value: UserAppliedJobs.length,
+      color: "rgba(43, 63, 229, 0.8)",
+    },
+    {
+      label: "Selected Applications",
+      value: userSelectedJobs.length,
+      color: "rgba(46, 204, 113, 0.8)", // Green
+    },
+    {
+      label: "In Proggress",
+      value: userPendingJobs.length,
+      color: "rgba(241, 196, 15, 0.8)", // Yellow
+    },
+    {
+      label: "Rejected Applications",
+      value: userRejectedJobs.length,
       color: "rgba(231, 76, 60, 0.8)", // Red
     },
   ];
@@ -172,6 +208,36 @@ const Analytics = () => {
                 plugins: {
                   title: {
                     text: "Revenue Source",
+                  },
+                },
+              }}
+            />
+          </div>
+        )}
+
+        {userType === "jobseeker" && (
+          <div className="dataCard barChart">
+            <Bar
+              data={{
+                labels: sourceDataJobSeekerJobStatus.map((data) => data.label),
+                datasets: [
+                  {
+                    label: "Count",
+                    data: sourceDataJobSeekerJobStatus.map(
+                      (data) => data.value
+                    ),
+                    backgroundColor: sourceDataJobSeekerJobStatus.map(
+                      (data) => data.color
+                    ),
+                    borderRadius: 5,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "My Job Applications Status Overview",
                   },
                 },
               }}
