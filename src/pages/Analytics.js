@@ -11,11 +11,55 @@ defaults.responsive = true;
 const Analytics = () => {
   const { jobs } = useSelector((state) => state.jobsReducer);
   const userType = JSON.parse(localStorage.getItem("user")).userType;
+  const userId = JSON.parse(localStorage.getItem("user"))._id;
 
   // Admin
   const AdminApprovedJobs = jobs.filter((job) => job.status === "approved");
   const AdminRejectedJobs = jobs.filter((job) => job.status === "rejected");
   const AdminPendingJobs = jobs.filter((job) => job.status === "pending");
+
+  //JobPoster with Admin
+  const PosterPostedJobs = jobs.filter((job) => job.postedBy == userId);
+  const PosterJobsApprovedByAdmin = PosterPostedJobs.filter(
+    (job) => job.status === "approved"
+  );
+  const PosterJobsRejectedByAdmin = PosterPostedJobs.filter(
+    (job) => job.status === "rejected"
+  );
+  const PosterJobspendingByAdmin = PosterPostedJobs.filter(
+    (job) => job.status === "pending"
+  );
+
+  //JobPoster with jobseeker
+  // PosterJobsApprovedByAdmin will be used from top.
+  let totalAppliedApplications = 0;
+  let approvedCount = 0;
+  let rejectedCount = 0;
+  let pendingCount = 0;
+
+  // Get the total number of applied applications
+  PosterJobsApprovedByAdmin.forEach((job) => {
+    totalAppliedApplications += job.appliedCandidates.length;
+  });
+
+  // get the counts of approved rejected pending counts of all the applied jobs for the poster
+  PosterJobsApprovedByAdmin.forEach((job) => {
+    job.appliedCandidates.forEach((candidate) => {
+      switch (candidate.status) {
+        case "Approved":
+          approvedCount++;
+          break;
+        case "Rejected":
+          rejectedCount++;
+          break;
+        case "pending":
+          pendingCount++;
+          break;
+        default:
+          break;
+      }
+    });
+  });
 
   //Jobseeker
   const UserAppliedJobs = JSON.parse(localStorage.getItem("user")).appliedJobs;
@@ -52,6 +96,54 @@ const Analytics = () => {
     {
       label: "Rejected",
       value: AdminRejectedJobs.length,
+      color: "rgba(231, 76, 60, 0.8)", // Red
+    },
+  ];
+
+  //JobPoster With Admin
+  const sourceDataJobPosterWithAdminJobStatus = [
+    {
+      label: "Posted Jobs",
+      value: PosterPostedJobs.length,
+      color: "rgba(43, 63, 229, 0.8)",
+    },
+    {
+      label: "Approved By Admin",
+      value: PosterJobsApprovedByAdmin.length,
+      color: "rgba(46, 204, 113, 0.8)", // Green
+    },
+    {
+      label: "In Proggress",
+      value: PosterJobspendingByAdmin.length,
+      color: "rgba(241, 196, 15, 0.8)", // Yellow
+    },
+    {
+      label: "Rejected By Admin",
+      value: PosterJobsRejectedByAdmin.length,
+      color: "rgba(231, 76, 60, 0.8)", // Red
+    },
+  ];
+
+  //JobPoster With JobSeeker
+  const sourceDataJobPosterWithJobSeekerJobStatus = [
+    {
+      label: "Total Applications Received",
+      value: totalAppliedApplications,
+      color: "rgba(43, 63, 229, 0.8)",
+    },
+    {
+      label: "Approved Applications",
+      value: approvedCount,
+      color: "rgba(46, 204, 113, 0.8)", // Green
+    },
+    {
+      label: "Pending Applications",
+      value: pendingCount,
+      color: "rgba(241, 196, 15, 0.8)", // Yellow
+    },
+    {
+      label: "Rejected Applications",
+      value: rejectedCount,
       color: "rgba(231, 76, 60, 0.8)", // Red
     },
   ];
@@ -215,6 +307,38 @@ const Analytics = () => {
           </div>
         )}
 
+        {userType === "jobposter" && (
+          <div className="dataCard barChart">
+            <Bar
+              data={{
+                labels: sourceDataJobPosterWithAdminJobStatus.map(
+                  (data) => data.label
+                ),
+                datasets: [
+                  {
+                    label: "Count",
+                    data: sourceDataJobPosterWithAdminJobStatus.map(
+                      (data) => data.value
+                    ),
+                    backgroundColor: sourceDataJobPosterWithAdminJobStatus.map(
+                      (data) => data.color
+                    ),
+                    borderRadius: 5,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "Admin Status Overview of My Posted Jobs",
+                  },
+                },
+              }}
+            />
+          </div>
+        )}
+
         {userType === "jobseeker" && (
           <div className="dataCard barChart">
             <Bar
@@ -272,6 +396,40 @@ const Analytics = () => {
             }}
           />
         </div>
+
+        {/* This below chart only for Jobposter */}
+        {userType === "jobposter" && (
+          <div className="dataCard lastBarChart">
+            <Bar
+              data={{
+                labels: sourceDataJobPosterWithJobSeekerJobStatus.map(
+                  (data) => data.label
+                ),
+                datasets: [
+                  {
+                    label: "Count",
+                    data: sourceDataJobPosterWithJobSeekerJobStatus.map(
+                      (data) => data.value
+                    ),
+                    backgroundColor:
+                      sourceDataJobPosterWithJobSeekerJobStatus.map(
+                        (data) => data.color
+                      ),
+                    borderRadius: 5,
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  title: {
+                    display: true,
+                    text: "Users Application Status Overview of My Posted Jobs",
+                  },
+                },
+              }}
+            />
+          </div>
+        )}
       </div>
     </DefaultLayout>
   );

@@ -142,7 +142,7 @@ input,
 }
 
 .Analytics {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -152,6 +152,7 @@ input,
   gap: 2vw;
   flex-wrap: wrap;
   background-color: #ddd;
+  padding: 1rem 0;
 }
 
 .dataCard {
@@ -169,6 +170,11 @@ input,
 .barChart {
   width: 50%;
   height: 20rem;
+}
+
+.lastBarChart {
+  width: 70%;
+  height: 25rem;
 }
 
 .allPostedJobsPieCHart {
