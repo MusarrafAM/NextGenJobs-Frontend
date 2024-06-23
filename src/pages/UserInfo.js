@@ -1,13 +1,23 @@
-import React from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Button, Form } from "antd"; // Assuming you're using Ant Design components
 
 function UserInfo({ match }) {
+  const baseBackendUrl = "http://localhost:5000/";
+
   const { id } = useParams();
   const { users } = useSelector((state) => state.usersReducer);
 
-  const user = users.find((user) => user._id == id);
+  const user = users.find((user) => user._id === id);
+  
+  const handleDownloadResume = () => {
+    if (user?.resume) {
+      // Construct download link or use alternative method (depending on how you store paths)
+      window.open(baseBackendUrl + user.resume, "_blank");
+    }
+  };
+
   return (
     <div>
       <DefaultLayout>
@@ -69,6 +79,13 @@ function UserInfo({ match }) {
             {user.experience.map((experience) => {
               return <li>{experience}</li>;
             })}
+
+            {/* Download Resume */}
+            <Form.Item label="Download the Resume">
+              {user?.resume && (
+                <Button onClick={handleDownloadResume}>Download</Button>
+              )}
+            </Form.Item>
           </div>
         )}
       </DefaultLayout>
