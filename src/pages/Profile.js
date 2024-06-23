@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
-import { Row, Col, Form, Tabs, Input, Button } from "antd";
+import { Row, Col, Form, Tabs, Input, Button, Upload, message  } from "antd";
 import {useDispatch} from 'react-redux'
 import { updateUser } from "../redux/actions/userActions";
+import axios from "axios";
 const { TextArea } = Input;
 const { TabPane } = Tabs;
+
 function Profile() {
+  const baseBackendUrl = "http://localhost:5000/"
   const [personalInfo, setPersonalInfo] = useState();
   const [activeTab, setActiveTab] = useState("1");
+  const [resumePath, setResumePath] = useState('');
+
   const dispatch = useDispatch()
   function onPersonInfoSubmit(values) {
     setPersonalInfo(values);
@@ -26,6 +31,63 @@ function Profile() {
   }
 
   const user = JSON.parse(localStorage.getItem('user'))
+
+
+  // Function to handle file upload
+  const handleFileUpload = ({ file, onSuccess }) => {
+    const formData = new FormData();
+    formData.append("resume", file);
+    formData.append("_id", user._id); // Ensure _id is included
+  
+    // Simulate uploading delay
+    setTimeout(async () => {
+      try {
+        const response = await fetch("/api/users/uploadresume", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        message.success(data.message);
+
+        // Update resumePath state with the new resume path
+        fetchResumePath(); // Fetch the updated path from the server
+
+      
+        onSuccess("Ok");
+      } catch (error) {
+        message.error("Resume upload failed");
+        console.error("Error uploading resume:", error);
+      }
+    }, 1000); // Adjust delay as needed
+  };
+
+
+
+  useEffect(() => {
+    // Fetch resume path from server when component mounts
+    fetchResumePath();
+  }, []);
+
+  const fetchResumePath = async () => {
+    try {
+      const response = await axios.get("/api/users/resume", {
+        params: { userId: user._id }, // Pass userId as query parameter
+      });
+      const { resume } = response.data; // Assuming your API returns resume path
+      setResumePath(resume);
+    } catch (error) {
+      console.error('Error fetching resume path:', error);
+    }
+  };
+
+  const handleDownloadResume = () => {
+    if (resumePath) {
+      // Construct download link or use alternative method (depending on how you store paths)
+      window.open( baseBackendUrl+resumePath , '_blank');
+    }
+  };
+
+
 
   return (
     <div>
@@ -212,6 +274,37 @@ function Profile() {
               <Button onClick={()=>{setActiveTab("1")}}>Previous</Button>
               <Button htmlType="submit">Update</Button>
             </Form>
+            
+            <Form layout="vertical">
+              <Col lg={8} sm={24} className="flex">
+                  {/* File upload for resume */}
+                  
+                  <Form.Item
+                    label="Upload Your Resume below"
+                    name="resume"
+                    // valuePropName="fileList"
+                    // getValueFromEvent={(e) => e.fileList}
+                  >
+                    <Upload
+                      customRequest={handleFileUpload}
+                      maxCount={1}
+                      accept=".pdf"
+                      showUploadList={{ showRemoveIcon: true }}
+                      listType="text"
+                    >
+                      <Button>Select File</Button>
+                    </Upload>
+                  </Form.Item>
+                  
+                  {/* Download Resume */}
+                  <Form.Item label="Download your Resume">
+                    {resumePath && (
+                      <Button onClick={handleDownloadResume}>Download</Button>
+                    )}
+                  </Form.Item>
+                </Col>
+            </Form>
+            
           </TabPane>
         </Tabs>
       </DefaultLayout>
@@ -219,4 +312,10 @@ function Profile() {
   );
 }
 
+
 export default Profile;
+
+
+
+
+                
