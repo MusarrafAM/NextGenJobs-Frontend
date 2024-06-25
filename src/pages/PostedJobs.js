@@ -146,12 +146,13 @@ const PostedJobs = () => {
 
     const approveCandidate = async (candidateId, jobId) => {
       try {
+        dispatch({ type: "LOADING", payload: true });
         await axios.post("/api/jobs/updatecandidatestatus", {
           candidateId,
           jobId,
           status: "Approved",
         });
-        console.log("Candidate approved successfully");
+        dispatch({ type: "LOADING", payload: false });
 
         // Optionally, you can handle state update or UI changes here
         setCandidateStatus((prevStatus) => ({
@@ -160,17 +161,20 @@ const PostedJobs = () => {
         }));
       } catch (error) {
         console.error("Error approving candidate:", error);
+        dispatch({ type: "LOADING", payload: false });
       }
     };
 
     const rejectCandidate = async (candidateId, jobId) => {
       try {
+        dispatch({ type: "LOADING", payload: true });
         await axios.post("/api/jobs/updatecandidatestatus", {
           candidateId,
           jobId,
           status: "Rejected",
         });
-        console.log("Candidate rejected successfully");
+        dispatch({ type: "LOADING", payload: false });
+
         // Optionally, you can handle state update or UI changes here
         setCandidateStatus((prevStatus) => ({
           ...prevStatus,
@@ -178,6 +182,7 @@ const PostedJobs = () => {
         }));
       } catch (error) {
         console.error("Error rejecting candidate:", error);
+        dispatch({ type: "LOADING", payload: false });
       }
     };
 
