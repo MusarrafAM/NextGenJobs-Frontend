@@ -30,46 +30,32 @@ const JobInfo = () => {
       <DefaultLayout>
         {job && (
           <div>
-            <p>
-              <b>Title</b> : {job.title}
-            </p>
-            <p>
-              <b>Company</b> : {job.company}
-            </p>
+          <div style={{ backgroundColor: '#f0f0f0', padding: '20px', borderRadius: '8px', border: '1px solid #ccc' }}>
+      <h2 style={{ color: '#333', fontFamily: 'Arial, sans-serif' }}>{job.title}</h2>
+      <p><b>Company:</b> {job.company}</p>
+      <p><b>Department:</b> {job.department}</p>
 
-            <p>
-              <b>Small Description</b> : {job.smallDescription}
-            </p>
-            <p>
-              <b>Full Description</b> : {job.fullDescription}
-            </p>
-            <p>
-              <b>Title</b> : {job.title}
-            </p>
-            <p>
-              <b>Skills Required</b> : {job.skillsRequired}
-            </p>
-            <p>
-              <b>Experience</b> : {job.experience}
-            </p>
-            <p>
-              <b>Minimum Qualification</b> : {job.minimumQualification}
-            </p>
+      <hr />
 
-            <hr />
+      <p><b>Small Description:</b> {job.smallDescription}</p>
+      <p><b>Full Description:</b> {job.fullDescription}</p>
 
-            <p>
-              <b>Salary Range</b> : {job.salaryFrom} - {job.salaryTo}
-            </p>
-            <p>
-              <b>Department</b> : {job.department}
-            </p>
-            <p>
-              <b>Company Profile</b> : {job.companyDescription}
-            </p>
-            <p>
-              <b>Total Candidates applied</b> : {job.appliedCandidates.length}
-            </p>
+      <hr />
+
+      <p><b>Skills Required:</b> {job.skillsRequired}</p>
+      <p><b>Experience:</b> {job.experience}</p>
+      <p><b>Minimum Qualification:</b> {job.minimumQualification}</p>
+
+      <hr />
+
+      <p><b>Salary Range:</b> {job.salaryFrom} - {job.salaryTo}</p>
+      <p><b>Total Candidates applied:</b> {job.appliedCandidates.length}</p>
+
+      <hr />
+
+      <p><b>Email:</b> {job.email}</p>
+      <p><b>Company Profile:</b> {job.companyDescription}</p>
+    </div>
 
             <hr />
 
