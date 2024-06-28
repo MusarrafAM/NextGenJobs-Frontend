@@ -73,6 +73,9 @@ const DefaultLayout = ({ children }) => {
               <Menu.Item key="/ManageJobs" icon={<GroupOutlined />}>
                 <Link to={"/ManageJobs"}>ManageJobs</Link>
               </Menu.Item>
+              <Menu.Item key="/ManageUsers" icon={<GroupOutlined />}>
+                <Link to={"/ManageUsers"}>ManageUsers</Link>
+              </Menu.Item>
             </>
           )}
 

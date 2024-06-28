@@ -32,6 +32,14 @@ const ManageJobs = () => {
     }
   }
 
+  const getUserFullName = (userId) => {
+    const user = allusers.find((user) => user._id === userId);
+    if (user) {
+      return `${user.username}`;
+    }
+    return "Unknown";
+  };
+
   async function handleRejectJob(jobid) {
     try {
       const response = await axios.put(`/api/jobs/updatejobstatus/${jobid}`, {
@@ -58,14 +66,16 @@ const ManageJobs = () => {
       title: "Job Id",
       dataIndex: "jobid",
       render: (text, data) => {
-        return (
-          <Link to={`/jobs/${data.jobid}`}>{data.jobid}</Link>
-        );
+        return <Link to={`/jobs/${data.jobid}`}>{data.jobid}</Link>;
       },
     },
     {
       title: "Posted On",
       dataIndex: "postedOn",
+    },
+    {
+      title: "Posted By",
+      dataIndex: "postedBy",
     },
     {
       title: "Applied Candidates",
@@ -157,6 +167,7 @@ const ManageJobs = () => {
     jobid: job._id,
     status: job.status,
     completeJobData: job,
+    postedBy: job.postedBy ? getUserFullName(job.postedBy) : "Unknown",
   }));
 
   const showModal = (job) => {

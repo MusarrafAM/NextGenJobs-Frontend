@@ -66,3 +66,18 @@ export const getAllUsers = () => async (dispatch) => {
     dispatch({ type: "LOADING", payload: false });
   }
 };
+
+export const deleteUser = (userId) => async (dispatch) => {
+  dispatch({ type: "LOADING", payload: true });
+
+  try {
+    await axios.delete(`/api/users/delete/${userId}`);
+    message.success("User deleted successfully");
+    // dispatch({ type: "DELETE_USER", payload: userId }); // Optionally update local state or Redux store
+    dispatch({ type: "LOADING", payload: false });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    message.error("Failed to delete user");
+    dispatch({ type: "LOADING", payload: false });
+  }
+};

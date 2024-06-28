@@ -20,6 +20,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import { getAllUsers } from "./redux/actions/userActions";
 import UserInfo from "./pages/UserInfo";
 import ManageJobs from "./pages/ManageJobs";
+import ManageUsers from "./pages/ManageUsers";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -72,6 +73,7 @@ function App() {
             {user && user.userType === "admin" && (
               <>
                 <Route path="/ManageJobs" element={<ManageJobs />} />
+                <Route path="/ManageUsers" element={<ManageUsers />} />
               </>
             )}
 
