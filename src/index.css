@@ -79,6 +79,8 @@ button {
   /* border-radius: 5px !important;  Not needed  */
 }
 
+
+
 .login,
 .register {
   padding-top: 150px;
@@ -180,4 +182,26 @@ input,
 .allPostedJobsPieCHart {
   width: 40%;
   height: 20rem;
+}
+
+/* To Change the Scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #d1e5ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#642bff, #642bff);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#ff22e6, #642bff);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(transparent, #642bff);
 }

@@ -83,7 +83,9 @@ const JobInfo = () => {
                   Already Applied
                 </Tag>
               ) : (
-                <Button onClick={applyNow}>Apply Now</Button>
+                userType === "jobseeker" && (
+                  <Button onClick={applyNow}>Apply Now</Button>
+                )
               )}
 
               <p>
