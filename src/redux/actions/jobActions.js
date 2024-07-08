@@ -53,6 +53,16 @@ export const editJob = (values) => async (dispatch) => {
 export const applyJob = (job) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
+  // Check if user has updated bio
+  if (!user.email) {
+    // Redirect to profile page or any other action you want
+    message.error("Please update your profile before applying for jobs");
+    setTimeout(() => {
+      window.location.href = "/profile"; // Redirect to profile page
+    }, 1000);
+    return; // Stop further execution
+  }
+
   dispatch({ type: "LOADING", payload: true });
   try {
     await axios.post("/api/jobs/applyjob", { job, user });
