@@ -10,9 +10,14 @@ export const registerUser = (values) => async (dispatch) => {
     setTimeout(() => {
       window.location.href = "/login";
     }, 1000);
-    dispatch({ type: "LOADING", payload: false });
   } catch (error) {
-    message.error("something went wrong , please try later");
+    console.log(error);
+    if (error.response && error.response.data) {
+      message.error(error.response.data.message);
+    } else {
+      message.error("something went wrong , please try later");
+    }
+  } finally {
     dispatch({ type: "LOADING", payload: false });
   }
 };

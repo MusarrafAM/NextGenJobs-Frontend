@@ -11,7 +11,6 @@ function Register() {
     if (values.password !== values.confirmpassword) {
       message.error("passwords are not matched");
     } else {
-      console.log(values);
       dispatch(registerUser(values));
     }
   }
@@ -19,7 +18,11 @@ function Register() {
   return (
     <div className="register">
       <Row justify="center" className="flex align-items-center">
-        <Col lg={5}><h1 className="heading1" data-aos='slide-right'>NextGen</h1></Col>
+        <Col lg={5}>
+          <h1 className="heading1" data-aos="slide-right">
+            NextGen
+          </h1>
+        </Col>
         <Col lg={10} sm={24} className="bs p-5 register-form">
           <h3>Register</h3>
           <hr />
@@ -34,7 +37,19 @@ function Register() {
             <Form.Item
               label="password"
               name="password"
-              rules={[{ required: true }]}
+              rules={[
+                { required: true, message: "Please enter your password" },
+                // {
+                //   min: 8,
+                //   message: "Password must be at least 8 characters long,",
+                // },
+                // {
+                //   pattern:
+                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                //   message:
+                //     "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character",
+                // },
+              ]}
             >
               <Input type="password" />
             </Form.Item>
@@ -45,20 +60,16 @@ function Register() {
             >
               <Input type="password" />
             </Form.Item>
-
-
             <Form.Item
-                    name="userType"
-                    rules={[{ required: true }]}
-                    label="User Type"
-                  >
-                    <Select>
-                      <Option value="jobseeker">Job Seeker</Option>
-                      <Option value="jobposter">Job Poster</Option>
-                    </Select>
-                  </Form.Item>
-
-          
+              name="userType"
+              rules={[{ required: true }]}
+              label="User Type"
+            >
+              <Select>
+                <Option value="jobseeker">Job Seeker</Option>
+                <Option value="jobposter">Job Poster</Option>
+              </Select>
+            </Form.Item>
             <Button htmlType="submit" className="mb-3">
               Register
             </Button>{" "}
