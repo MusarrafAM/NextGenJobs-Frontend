@@ -125,10 +125,15 @@ export const sortJobs = (values) => async (dispatch) => {
     var filteredJobs = jobs;
 
     if (values.experience !== undefined) {
-      filteredJobs = jobs.filter((job) => job.experience <= values.experience);
+      filteredJobs = filteredJobs.filter(
+        (job) => Number(job.experience) <= values.experience
+      );
     }
+
     if (values.salary !== undefined) {
-      filteredJobs = jobs.filter((job) => job.salaryTo >= values.salary);
+      filteredJobs = filteredJobs.filter(
+        (job) => Number(job.salaryTo) >= values.salary
+      );
     }
 
     dispatch({ type: "GET_ALL_JOBS", payload: filteredJobs });
