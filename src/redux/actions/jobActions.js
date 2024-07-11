@@ -115,27 +115,36 @@ export const searchJobs = (searchKey) => async (dispatch) => {
   }
 };
 
-export const sortJobs = (values) => async (dispatch) => {
+export const sortJobs = (values, searchText) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
   try {
     const response = await axios.get("/api/jobs/getalljobs");
-
     const jobs = response.data;
 
-    var filteredJobs = jobs;
+    let filteredJobs = jobs;
 
+    // Apply search filter
+    if (searchText) {
+      filteredJobs = filteredJobs.filter((job) =>
+        job.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+
+    // Apply experience filter
     if (values.experience !== undefined) {
       filteredJobs = filteredJobs.filter(
         (job) => Number(job.experience) <= values.experience
       );
     }
 
+    // Apply salary filter
     if (values.salary !== undefined) {
       filteredJobs = filteredJobs.filter(
         (job) => Number(job.salaryTo) >= values.salary
       );
     }
 
+    // Dispatch filtered jobs to Redux store
     dispatch({ type: "GET_ALL_JOBS", payload: filteredJobs });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {

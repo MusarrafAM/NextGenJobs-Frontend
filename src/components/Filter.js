@@ -8,6 +8,7 @@ const { Search } = Input;
 const { Option } = Select;
 function Filter() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState(null);
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -22,9 +23,8 @@ function Filter() {
     setIsModalVisible(false);
   };
 
-  function sort(values) {
-    dispatch(sortJobs(values));
-
+  function sort(values, searchText) {
+    dispatch(sortJobs(values, searchText));
     handleCancel();
   }
   return (
@@ -32,6 +32,7 @@ function Filter() {
       <Search
         onSearch={(value) => {
           dispatch(searchJobs(value));
+          setSearchText(value);
         }}
       />
       <FilterOutlined onClick={showModal} />
@@ -44,7 +45,7 @@ function Filter() {
         onCancel={handleCancel}
         // closable={false}
       >
-        <Form layout="vertical" onFinish={sort}>
+        <Form layout="vertical" onFinish={(values) => sort(values, searchText)}>
           <Form.Item name="experience" label="Experipence">
             <Select>
               <Option value={0}>Fresher</Option>
