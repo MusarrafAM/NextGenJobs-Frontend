@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
-import { Row, Col, Form, Tabs, Input, Button, Select } from "antd";
+import { Row, Col, Form, Tabs, Input, InputNumber, Button, Select } from "antd";
 import { useDispatch } from "react-redux";
 import { postJob } from "../redux/actions/jobActions";
 const { TextArea } = Input;
@@ -50,10 +50,13 @@ function PostJob() {
                 <Col lg={8} sm={24}>
                   <Form.Item
                     name="experience"
-                    rules={[{ required: true }]}
+                    rules={[{ required: true, type: "number", min: 0 }]}
                     label="Experience"
                   >
-                    <Input />
+                    <InputNumber
+                      placeholder="Enter the number of years"
+                      style={{ width: "100%" }}
+                    />
                   </Form.Item>
                 </Col>
 

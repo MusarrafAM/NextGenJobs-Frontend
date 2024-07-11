@@ -63,7 +63,7 @@ const JobInfo = () => {
                 <b>Skills Required:</b> {job.skillsRequired}
               </p>
               <p>
-                <b>Experience:</b> {job.experience}
+                <b>Experience:</b> {job.experience} years
               </p>
               <p>
                 <b>Minimum Qualification:</b> {job.minimumQualification}
