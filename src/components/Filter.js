@@ -68,6 +68,7 @@ function Filter() {
             </Select>
           </Form.Item>
           <Button htmlType="submit">Filter</Button>
+          <Button htmlType="reset">Reset</Button>
         </Form>
       </Modal>
     </div>
