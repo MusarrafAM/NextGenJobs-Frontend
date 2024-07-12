@@ -38,12 +38,13 @@ const DefaultLayout = ({ children }) => {
         style={{ position: "sticky", overflow: "auto", height: "100%", top: 0 }}
       >
         <div className="demo-logo-vertical">
-          {collapsed ? <h1 className="text-4xl font-semibold">NGJ</h1> : <h1 className="text-3xl font-semibold">NextGenJobs</h1>}
+          {collapsed ? <h1 className=" text-4xl font-semibold">NGJ</h1> : <h1 className="text-3xl font-semibold">NextGenJobs</h1>}
         </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[window.location.pathname]} //defaultSelectedKeys = will choose which to highight
+          className="mt-6"
         >
           <Menu.Item key="/" icon={<HomeOutlined />}>
             <Link to={"/"}>Home</Link>

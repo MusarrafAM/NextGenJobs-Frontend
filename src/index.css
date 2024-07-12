@@ -38,6 +38,7 @@ code {
   color: white;
   text-align: center;
   font-size: 16px;
+  margin-top: 14px;
 }
 
 .ant-layout-content {
@@ -78,8 +79,6 @@ button {
   color: white !important;
   /* border-radius: 5px !important;  Not needed  */
 }
-
-
 
 .login,
 .register {
