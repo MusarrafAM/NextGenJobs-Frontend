@@ -34,6 +34,15 @@ function Register() {
             >
               <Input />
             </Form.Item>
+
+            <Form.Item
+              label="email"
+              name="email"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
+
             <Form.Item
               label="password"
               name="password"
