@@ -17,9 +17,9 @@ body {
   /* Make sure above font famly works */
 }
 
-html {
+/* html {
   overflow-x: hidden !important;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
