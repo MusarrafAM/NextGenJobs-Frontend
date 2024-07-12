@@ -1,20 +1,17 @@
-import DefaultLayout from "../components/DefaultLayout";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, Form } from "antd"; // Assuming you're using Ant Design components
+import { Button, Form, Tag } from "antd";
+import DefaultLayout from "../components/DefaultLayout";
 
-function UserInfo({ match }) {
-  const baseBackendUrl = "http://localhost:5000/";
-
+const UserInfo = () => {
   const { id } = useParams();
   const { users } = useSelector((state) => state.usersReducer);
-
   const user = users.find((user) => user._id === id);
-  
+
   const handleDownloadResume = () => {
     if (user?.resume) {
-      // Construct download link or use alternative method (depending on how you store paths)
-      window.open(baseBackendUrl + user.resume, "_blank");
+      window.open(`http://localhost:5000/${user.resume}`, "_blank");
     }
   };
 
@@ -23,74 +20,84 @@ function UserInfo({ match }) {
       <DefaultLayout>
         {user && (
           <div>
-            <h3>
-              <b>Personal inforamtion</b>
-            </h3>
-            <p>
-              <b>First name : </b>
-              {user.firstName}
-            </p>
-            <p>
-              <b>Last name : </b>
-              {user.lastName}
-            </p>
-            <p>
-              <b>Email : </b>
-              {user.email}
-            </p>
-            <p>
-              <b>Mobile Number : </b>
-              {user.mobileNumber}
-            </p>
-            <p>
-              <b>Address : </b>
-              {user.address}
-            </p>
+            <div
+              style={{
+                backgroundColor: "#f0f0f0",
+                padding: "20px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
+              }}
+            >
+              <h2
+                className="text-4xl pb-4"
+                style={{ color: "#333", fontFamily: "Arial, sans-serif" }}
+              >
+                {user.firstName} {user.lastName}
+              </h2>
+              <p>
+                <b>Email:</b> {user.email}
+              </p>
+              <p>
+                <b>Mobile Number:</b> {user.mobileNumber}
+              </p>
+              <p>
+                <b>Address:</b> {user.address}
+              </p>
 
-            <hr />
-            <h3>
-              <b>Skills</b>
-            </h3>
+              <hr className="my-4" />
 
-            {user.skills.map((skill) => {
-              return <li>{skill}</li>;
-            })}
+              <p>
+                <b>Skills</b>
+              </p>
+              {user.skills.map((skill, index) => (
+                <Tag key={index}>{skill}</Tag>
+              ))}
 
-            <hr />
-            <h3>
-              <b>Education</b>
-            </h3>
-            {user.education.map((education) => {
-              return <li>{education}</li>;
-            })}
-            <hr />
+              <hr className="my-4" />
 
-            <h3>
-              <b>Projects</b>
-            </h3>
-            {user.projects.map((project) => {
-              return <li>{project}</li>;
-            })}
+              <p>
+                <b>Education</b>
+              </p>
+              <ul>
+                {user.education.map((education, index) => (
+                  <li key={index}>{education}</li>
+                ))}
+              </ul>
 
-            <hr />
-            <h3>
-              <b>Experience</b>
-            </h3>
-            {user.experience.map((experience) => {
-              return <li>{experience}</li>;
-            })}
+              <hr className="my-4" />
 
-            {/* Download Resume */}
-            <Form.Item label="Download the Resume">
-              {user?.resume && (
-                <Button onClick={handleDownloadResume}>Download</Button>
-              )}
-            </Form.Item>
+              <p>
+                <b>Projects</b>
+              </p>
+              <ul>
+                {user.projects.map((project, index) => (
+                  <li key={index}>{project}</li>
+                ))}
+              </ul>
+
+              <hr className="my-4" />
+
+              <p>
+                <b>Experience</b>
+              </p>
+              <ul>
+                {user.experience.map((experience, index) => (
+                  <li key={index}>{experience}</li>
+                ))}
+              </ul>
+
+              {/* Download Resume */}
+              <Form.Item label="Download Resume" className="mt-4">
+                {user?.resume && (
+                  <Button onClick={handleDownloadResume}>Download</Button>
+                )}
+              </Form.Item>
+            </div>
           </div>
         )}
       </DefaultLayout>
     </div>
   );
-}
+};
 
 export default UserInfo;

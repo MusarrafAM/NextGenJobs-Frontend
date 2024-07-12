@@ -92,7 +92,11 @@ const DefaultLayout = ({ children }) => {
           <Menu.Item key="/logout" icon={<LogoutOutlined />} onClick={logout}>
             <Link to={"/login"}>Logout</Link>
           </Menu.Item>
-          <div>this is the footer</div>
+          {!collapsed && (
+            <div className="absolute bottom-[30px] left-0 right-0 text-center">
+              &copy; 2024 NextGen Jobs
+            </div>
+          )}
         </Menu>
       </Sider>
       <Layout>
@@ -124,7 +128,7 @@ const DefaultLayout = ({ children }) => {
 
           <div className="mr-4 userinfo-top">
             <div className="text-sm text-center">
-              <b>{user.username}</b>
+              <b>{user?.firstName || user.username}</b>
               <p>{user.userType}</p>
             </div>
           </div>
