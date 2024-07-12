@@ -283,7 +283,7 @@ const PostedJobs = () => {
   return (
     <div>
       <DefaultLayout>
-        <h1>Posted jobs</h1>
+        <h1 className="text-4xl font-semibold pb-2">Posted jobs</h1>
         <Table columns={columns} dataSource={dataSource} />
 
         <Modal

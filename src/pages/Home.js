@@ -19,7 +19,7 @@ const Home = () => {
           {approvedJobs.map((job) => {
            return <Col lg={12} sm={24} key={job._id}>
                 <div className="job-div bs m-2 p-2">
-                  <div>
+                  <div className="flex justify-between">
                     <h4 className="font-semibold text-2xl">{job.title}</h4>
                     { job.isDisabled && <p style={{ color: "red" }}>The application period has ended.</p>  }
                    </div>

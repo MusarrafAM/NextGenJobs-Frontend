@@ -40,7 +40,10 @@ const JobInfo = () => {
                 border: "1px solid #ccc",
               }}
             >
-              <h2 style={{ color: "#333", fontFamily: "Arial, sans-serif" }}>
+              <h2
+                className="text-4xl pb-4"
+                style={{ color: "#333", fontFamily: "Arial, sans-serif" }}
+              >
                 {job.title}
               </h2>
               <p>
@@ -50,7 +53,7 @@ const JobInfo = () => {
                 <b>Department:</b> {job.department}
               </p>
 
-              <hr />
+              <hr className="my-4" />
 
               <p>
                 <b>Small Description:</b> {job.smallDescription}
@@ -59,7 +62,7 @@ const JobInfo = () => {
                 <b>Full Description:</b> {job.fullDescription}
               </p>
 
-              <hr />
+              <hr className="my-4" />
 
               <p>
                 <b>Skills Required:</b> {job.skillsRequired}
@@ -71,7 +74,7 @@ const JobInfo = () => {
                 <b>Minimum Qualification:</b> {job.minimumQualification}
               </p>
 
-              <hr />
+              <hr className="my-4" />
 
               <p>
                 <b>Salary Range:</b> {job.salaryFrom} - {job.salaryTo}
@@ -80,7 +83,7 @@ const JobInfo = () => {
                 <b>Total Candidates applied:</b> {job.appliedCandidates.length}
               </p>
 
-              <hr />
+              <hr className="my-4" />
 
               <p>
                 <b>Email:</b> {job.email}
@@ -90,9 +93,9 @@ const JobInfo = () => {
               </p>
             </div>
 
-            <hr />
+            <hr className="my-3" />
 
-            <div className="flex justify-content-between">
+            <div className="flex justify-between">
               {isDisabled ? (
                 <p style={{ color: "red" }}>
                   The application period has ended.

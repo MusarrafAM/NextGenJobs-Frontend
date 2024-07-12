@@ -20,7 +20,14 @@ const ManageUsers = () => {
       dataIndex: "_id",
       render: (text, record) => {
         if (record.userType === "jobseeker") {
-          return <Link to={`/users/${record._id}`}>{record._id}</Link>;
+          return (
+            <Link
+              className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              to={`/users/${record._id}`}
+            >
+              {record._id}
+            </Link>
+          );
         } else {
           return record._id;
         }
@@ -108,7 +115,7 @@ const ManageUsers = () => {
   return (
     <div>
       <DefaultLayout>
-        <h1>Manage Users</h1>
+        <h1 className="text-4xl font-semibold pb-2">Manage Users</h1>
         <Table columns={columns} dataSource={dataSource} />
 
         <Modal

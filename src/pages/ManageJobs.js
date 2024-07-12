@@ -66,7 +66,14 @@ const ManageJobs = () => {
       title: "Job Id",
       dataIndex: "jobid",
       render: (text, data) => {
-        return <Link to={`/jobs/${data.jobid}`}>{data.jobid}</Link>;
+        return (
+          <Link
+            className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+            to={`/jobs/${data.jobid}`}
+          >
+            {data.jobid}
+          </Link>
+        );
       },
     },
     {
@@ -208,7 +215,12 @@ const ManageJobs = () => {
         dataIndex: "candidateId",
         render: (text, data) => {
           return (
-            <Link to={`/users/${data.candidateId}`}>{data.candidateId}</Link>
+            <Link
+              className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              to={`/users/${data.candidateId}`}
+            >
+              {data.candidateId}
+            </Link>
           );
         },
       },
@@ -255,7 +267,7 @@ const ManageJobs = () => {
   return (
     <div>
       <DefaultLayout>
-        <h1>Manage Jobs</h1>
+        <h1 className="text-4xl font-semibold pb-2">Manage Jobs</h1>
         <Table columns={columns} dataSource={dataSource} />
 
         <Modal
