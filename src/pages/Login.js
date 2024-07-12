@@ -1,3 +1,98 @@
+// import React, { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { loginUser } from "../redux/actions/userActions";
+// import "./Login.css";
+// import backgroundImage from "../assets/bg.svg";
+// import avatarImage from "../assets/avatar.svg";
+// import wave from "../assets/wave.png";
+
+// const LoginForm = () => {
+//   const dispatch = useDispatch();
+//   const [username, setUsername] = useState("");
+//   const [password, setPassword] = useState("");
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     dispatch(loginUser({ username, password }));
+//     // setUsername("");
+//     // setPassword("");
+//   };
+
+//   const handleUsernameChange = (e) => {
+//     setUsername(e.target.value);
+//   };
+
+//   const handlePasswordChange = (e) => {
+//     setPassword(e.target.value);
+//   };
+
+//   const addcl = (e) => {
+//     let parent = e.target.parentNode.parentNode;
+//     parent.classList.add("focus");
+//   };
+
+//   const remcl = (e) => {
+//     let parent = e.target.parentNode.parentNode;
+//     if (e.target.value === "") {
+//       parent.classList.remove("focus");
+//     }
+//   };
+
+//   return (
+//     <>
+//       <img className="wave" src={wave} alt="wave" />
+//       <div className="container">
+//         <div className="img">
+//           <img src={backgroundImage} alt="background" />
+//         </div>
+//         <div className="login-content">
+//           <form onSubmit={handleSubmit}>
+//             <img src={avatarImage} alt="avatar" />
+//             <h2 className="title">Welcome</h2>
+//             <div className="input-div one">
+//               <div className="i">
+//                 <i className="fas fa-user"></i>
+//               </div>
+//               <div className="div">
+//                 <h5>Username</h5>
+//                 <input
+//                   type="text"
+//                   className="input"
+//                   value={username}
+//                   onChange={handleUsernameChange}
+//                   onFocus={addcl}
+//                   onBlur={remcl}
+//                   required
+//                 />
+//               </div>
+//             </div>
+//             <div className="input-div pass">
+//               <div className="i">
+//                 <i className="fas fa-lock"></i>
+//               </div>
+//               <div className="div">
+//                 <h5>Password</h5>
+//                 <input
+//                   type="password"
+//                   className="input"
+//                   value={password}
+//                   onChange={handlePasswordChange}
+//                   onFocus={addcl}
+//                   onBlur={remcl}
+//                   required
+//                 />
+//               </div>
+//             </div>
+//             <input type="submit" className="btn" value="Login" />
+//           </form>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default LoginForm;
+
 import React from "react";
 import { Row, Col, Form, Input, Button } from "antd";
 import { loginUser } from "../redux/actions/userActions";
