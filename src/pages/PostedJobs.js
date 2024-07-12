@@ -6,11 +6,12 @@ import {
   DeleteOutlined,
   EditOutlined,
   OrderedListOutlined,
+  PauseCircleOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteJob } from "../redux/actions/jobActions";
+import { deleteJob, disableJob } from "../redux/actions/jobActions";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -79,7 +80,7 @@ const PostedJobs = () => {
                           console.error("Error deleting job:", error);
                         }
                       );
-                      // This is after conirm yes popup no need for now.
+                      // // This is after conirm yes popup no need for now.
                       // Swal.fire({
                       //   title: "Deleted!",
                       //   text: "The job has been deleted succesfully",
@@ -92,6 +93,36 @@ const PostedJobs = () => {
                 }
               }}
             />
+
+            {/* Disable Job */}
+            {!data.completeJobData.isDisabled && (
+              <PauseCircleOutlined
+                style={{ fontSize: 20 }}
+                onClick={() => {
+                  if (data.completeJobData && data.completeJobData._id) {
+                    Swal.fire({
+                      title: "Are you sure?",
+                      text: "You won't be able to revert this!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Yes, Close the Application!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        dispatch(disableJob(data.completeJobData._id)).catch(
+                          (error) => {
+                            console.error("Error disabling job:", error);
+                          }
+                        );
+                      }
+                    });
+                  } else {
+                    console.error("Job data or job ID is undefined");
+                  }
+                }}
+              />
+            )}
           </div>
         );
       },

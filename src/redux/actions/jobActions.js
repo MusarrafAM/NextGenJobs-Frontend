@@ -96,6 +96,25 @@ export const deleteJob = (jobId) => async (dispatch) => {
   }
 };
 
+
+export const disableJob = (jobId) => async (dispatch) => {
+  dispatch({ type: "LOADING", payload: true }); // Dispatch loading action
+
+  try {
+    await axios.post(`/api/jobs/updatejobdisabled/${jobId}`, { isDisabled: true });
+
+    // Update the job list after disabling
+    const response = await axios.get("/api/jobs/getalljobs");
+    dispatch({ type: "GET_ALL_JOBS", payload: response.data });
+
+    dispatch({ type: "LOADING", payload: false }); // Dispatch loading action complete
+    message.success("Job disabled Successfully"); // Show success message
+  } catch (error) {
+    console.log(error); // Log any errors to console
+    dispatch({ type: "LOADING", payload: false }); // Dispatch loading action complete
+  }
+};
+
 export const searchJobs = (searchKey) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
   try {

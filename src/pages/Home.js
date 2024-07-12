@@ -19,7 +19,10 @@ const Home = () => {
           {approvedJobs.map((job) => {
            return <Col lg={12} sm={24} key={job._id}>
                 <div className="job-div bs m-2 p-2">
-                   <h4>{job.title}</h4>
+                  <div>
+                    <h4>{job.title}</h4>
+                    { job.isDisabled && <p style={{ color: "red" }}>The application period has ended.</p>  }
+                   </div>
                    <p>{job.company}</p>
                    <hr />
                    <p>{job.smallDescription}</p>

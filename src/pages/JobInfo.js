@@ -25,6 +25,8 @@ const JobInfo = () => {
     dispatch(applyJob(job));
   }
 
+  const isDisabled = job?.isDisabled;
+
   return (
     <div>
       <DefaultLayout>
@@ -91,18 +93,26 @@ const JobInfo = () => {
             <hr />
 
             <div className="flex justify-content-between">
-              {userType === "admin" ? null : job.postedBy === userid ? (
-                <Button>
-                  <Link to={`/editjob/${job._id}`}>Edit Now</Link>
-                </Button>
-              ) : alreadyApplied ? (
-                <Tag icon={<CheckCircleOutlined />} color="success">
-                  Already Applied
-                </Tag>
+              {isDisabled ? (
+                <p style={{ color: "red" }}>
+                  The application period has ended.
+                </p>
               ) : (
-                userType === "jobseeker" && (
-                  <Button onClick={applyNow}>Apply Now</Button>
-                )
+                <>
+                  {userType === "admin" ? null : job.postedBy === userid ? (
+                    <Button>
+                      <Link to={`/editjob/${job._id}`}>Edit Now</Link>
+                    </Button>
+                  ) : alreadyApplied ? (
+                    <Tag icon={<CheckCircleOutlined />} color="success">
+                      Already Applied
+                    </Tag>
+                  ) : (
+                    userType === "jobseeker" && (
+                      <Button onClick={applyNow}>Apply Now</Button>
+                    )
+                  )}
+                </>
               )}
 
               <p>
