@@ -202,7 +202,6 @@ input,
   }
 }
 
-
 /* To Change the Scrollbar */
 ::-webkit-scrollbar {
   width: 15px;
@@ -213,14 +212,14 @@ input,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#642bff, #642bff);
+  background: linear-gradient(#351787, #351787);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(#ff22e6, #642bff);
+  background: linear-gradient(#4d22c4, #4d22c4);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(transparent, #642bff);
+  background: linear-gradient(#642bff, #642bff);
 }
