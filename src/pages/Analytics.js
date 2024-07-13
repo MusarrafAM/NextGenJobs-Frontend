@@ -1,4 +1,5 @@
 import DefaultLayout from "../components/DefaultLayout";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { Chart as ChartJS, defaults } from "chart.js/auto";
@@ -12,6 +13,12 @@ const Analytics = () => {
   const { jobs } = useSelector((state) => state.jobsReducer);
   const userType = JSON.parse(localStorage.getItem("user")).userType;
   const userId = JSON.parse(localStorage.getItem("user"))._id;
+
+  // To toggle betbeen shoiwing legends
+  const [showLegend, setShowLegend] = useState(false);
+  const toggleLegend = () => {
+    setShowLegend(!showLegend);
+  };
 
   // Admin
   const AdminApprovedJobs = jobs.filter((job) => job.status === "approved");
@@ -370,6 +377,12 @@ const Analytics = () => {
         )}
 
         <div className="dataCard allPostedJobsPieCHart">
+          <button
+            className="absolute text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            onClick={toggleLegend}
+          >
+            {showLegend ? "Hide Legends" : "Show Legends"}
+          </button>
           <Doughnut
             data={{
               labels: sourceDataAdminApprovedJobCounts.map(
@@ -391,6 +404,9 @@ const Analytics = () => {
                 title: {
                   // display: true,
                   text: "Jobs posted",
+                },
+                legend: {
+                  display: showLegend, // Hide the legend
                 },
               },
             }}
