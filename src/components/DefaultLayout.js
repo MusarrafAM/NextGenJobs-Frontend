@@ -15,6 +15,7 @@ import {
 import { Button, Layout, Menu, theme } from "antd";
 import { Link } from "react-router-dom";
 import Filter from "./Filter";
+import Logo from "../assets/logo.png";
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout = ({ children }) => {
@@ -94,6 +95,7 @@ const DefaultLayout = ({ children }) => {
           </Menu.Item>
           {!collapsed && (
             <div className="absolute bottom-[30px] left-0 right-0 text-center">
+              <img className="w-[50%] pb-6 mx-auto" src={Logo} alt="NextGen Jobs Logo" />
               &copy; 2024 NextGen Jobs
             </div>
           )}
