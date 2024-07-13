@@ -21,6 +21,7 @@ import { getAllUsers } from "./redux/actions/userActions";
 import UserInfo from "./pages/UserInfo";
 import ManageJobs from "./pages/ManageJobs";
 import ManageUsers from "./pages/ManageUsers";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { loader } = useSelector((state) => state.loaderReducer);
@@ -35,14 +36,6 @@ function App() {
   const user = JSON.parse(localStorage.getItem("user")); //getting userdetails from localstorage.
 
   // Create a component later
-  function NotFound() {
-    return (
-      <div>
-        <h1>404 - Not Found</h1>
-        <p>Sorry, the page you are looking for does not exist.</p>
-      </div>
-    );
-  }
 
   return (
     <div className="App">
