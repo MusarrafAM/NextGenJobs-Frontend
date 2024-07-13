@@ -4,7 +4,7 @@ import { loginUser } from "../redux/actions/userActions";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import backgroundImage from "../assets/bg.svg";
-import avatarImage from "../assets/avatar.svg";
+import avatarImage from "../assets/avatar1.svg";
 import wave from "../assets/wave.png";
 
 const LoginForm = () => {
@@ -46,7 +46,7 @@ const LoginForm = () => {
         </div>
         <div className="login-content">
           <form onSubmit={handleSubmit}>
-            <img src={avatarImage} alt="avatar" />
+            <img className="bg-img" src={avatarImage} alt="avatar" />
             <h2 className="title">Welcome</h2>
             <div className="input-div one">
               <div className="i">
