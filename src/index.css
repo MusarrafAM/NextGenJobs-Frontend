@@ -188,6 +188,21 @@ input,
   height: 20rem;
 }
 
+@media (max-width: 768px) {
+  .dataCard {
+    width: 100%; /* Each dataCard takes full width */
+    margin-bottom: 1rem; /* Optional: Add space between cards */
+  }
+
+  .lineChart,
+  .barChart,
+  .lastBarChart,
+  .allPostedJobsPieChart {
+    width: 100%; /* Charts inside dataCard take full width */
+  }
+}
+
+
 /* To Change the Scrollbar */
 ::-webkit-scrollbar {
   width: 15px;

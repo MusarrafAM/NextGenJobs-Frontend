@@ -39,9 +39,9 @@ const DefaultLayout = ({ children }) => {
       >
         <div className="demo-logo-vertical">
           {collapsed ? (
-            <h1 className=" text-3xl font-semibold">NGJ</h1>
+            <h1 className="text-2xl md:text-3xl font-semibold">NGJ</h1>
           ) : (
-            <h1 className="text-3xl font-semibold">NextGenJobs</h1>
+            <h1 className="text-2xl md:text-3xl  font-semibold">NextGenJobs</h1>
           )}
         </div>
         <Menu
