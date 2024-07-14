@@ -1,12 +1,22 @@
 import axios from "axios";
 import { message } from "antd";
+import moment from "moment"; // Library to easily work with dates
+
+// sort jobs by create dates in decending order
+const sortJobsByCreatedAt = (jobs) => {
+  return jobs.sort(
+    (a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf()
+  );
+};
 
 export const getAllJobs = () => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
   try {
     // we have added "proxy": "http://localhost:5000/" in the package.json
     const response = await axios.get("/api/jobs/getalljobs");
-    dispatch({ type: "GET_ALL_JOBS", payload: response.data });
+    const sortedJobs = sortJobsByCreatedAt(response.data);
+
+    dispatch({ type: "GET_ALL_JOBS", payload: sortedJobs });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {
     console.log(error);
@@ -86,7 +96,9 @@ export const deleteJob = (jobId) => async (dispatch) => {
 
     // Update the job list after deletion
     const response = await axios.get("/api/jobs/getalljobs");
-    dispatch({ type: "GET_ALL_JOBS", payload: response.data });
+    const sortedJobs = sortJobsByCreatedAt(response.data);
+
+    dispatch({ type: "GET_ALL_JOBS", payload: sortedJobs });
 
     dispatch({ type: "LOADING", payload: false });
     message.success("Job deleted Successfully");
@@ -96,16 +108,19 @@ export const deleteJob = (jobId) => async (dispatch) => {
   }
 };
 
-
 export const disableJob = (jobId) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true }); // Dispatch loading action
 
   try {
-    await axios.post(`/api/jobs/updatejobdisabled/${jobId}`, { isDisabled: true });
+    await axios.post(`/api/jobs/updatejobdisabled/${jobId}`, {
+      isDisabled: true,
+    });
 
     // Update the job list after disabling
     const response = await axios.get("/api/jobs/getalljobs");
-    dispatch({ type: "GET_ALL_JOBS", payload: response.data });
+    const sortedJobs = sortJobsByCreatedAt(response.data);
+
+    dispatch({ type: "GET_ALL_JOBS", payload: sortedJobs });
 
     dispatch({ type: "LOADING", payload: false }); // Dispatch loading action complete
     message.success("Job disabled Successfully"); // Show success message
@@ -126,7 +141,9 @@ export const searchJobs = (searchKey) => async (dispatch) => {
       job.title.toLowerCase().includes(searchKey.toLowerCase())
     );
 
-    dispatch({ type: "GET_ALL_JOBS", payload: filteredJobs });
+    const sortedFilteredJobs = sortJobsByCreatedAt(filteredJobs);
+
+    dispatch({ type: "GET_ALL_JOBS", payload: sortedFilteredJobs });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {
     console.log(error);
@@ -163,8 +180,10 @@ export const sortJobs = (values, searchText) => async (dispatch) => {
       );
     }
 
+    const sortedFilteredJobs = sortJobsByCreatedAt(filteredJobs);
+
     // Dispatch filtered jobs to Redux store
-    dispatch({ type: "GET_ALL_JOBS", payload: filteredJobs });
+    dispatch({ type: "GET_ALL_JOBS", payload: sortedFilteredJobs });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {
     console.log(error);
