@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { deleteJob, disableJob } from "../redux/actions/jobActions";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { baseUrl } from "../constants/constant";
 
 const PostedJobs = () => {
   const dispatch = useDispatch();
@@ -163,7 +164,7 @@ const PostedJobs = () => {
       const fetchCandidateStatuses = async () => {
         try {
           const response = await axios.get(
-            `/api/jobs/candidatestatuses/${selectedJob._id}`
+            `${baseUrl}/api/jobs/candidatestatuses/${selectedJob._id}`
           );
           const { candidateStatuses } = response.data;
           setCandidateStatus(candidateStatuses);
@@ -178,7 +179,7 @@ const PostedJobs = () => {
     const approveCandidate = async (candidateId, jobId) => {
       try {
         dispatch({ type: "LOADING", payload: true });
-        await axios.post("/api/jobs/updatecandidatestatus", {
+        await axios.post(`${baseUrl}/api/jobs/updatecandidatestatus`, {
           candidateId,
           jobId,
           status: "Approved",
@@ -199,7 +200,7 @@ const PostedJobs = () => {
     const rejectCandidate = async (candidateId, jobId) => {
       try {
         dispatch({ type: "LOADING", payload: true });
-        await axios.post("/api/jobs/updatecandidatestatus", {
+        await axios.post(`${baseUrl}/api/jobs/updatecandidatestatus`, {
           candidateId,
           jobId,
           status: "Rejected",
