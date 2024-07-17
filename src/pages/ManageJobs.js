@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { deleteJob } from "../redux/actions/jobActions";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { baseUrl } from "../constants/constant";
 
 const ManageJobs = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,12 @@ const ManageJobs = () => {
 
   async function handleApproveJob(jobid) {
     try {
-      const response = await axios.put(`/api/jobs/updatejobstatus/${jobid}`, {
-        status: "approved",
-      });
+      const response = await axios.put(
+        `${baseUrl}/api/jobs/updatejobstatus/${jobid}`,
+        {
+          status: "approved",
+        }
+      );
       console.log("Job approved successfully!");
       // Optionally, you can update the UI to reflect the new status
       window.location.reload(); // Refresh the page
@@ -42,9 +46,12 @@ const ManageJobs = () => {
 
   async function handleRejectJob(jobid) {
     try {
-      const response = await axios.put(`/api/jobs/updatejobstatus/${jobid}`, {
-        status: "rejected",
-      });
+      const response = await axios.put(
+        `${baseUrl}/api/jobs/updatejobstatus/${jobid}`,
+        {
+          status: "rejected",
+        }
+      );
       console.log("Job rejected successfully!");
       // Optionally, you can update the UI to reflect the new status
       window.location.reload(); // Refresh the page
@@ -197,7 +204,7 @@ const ManageJobs = () => {
       const fetchCandidateStatuses = async () => {
         try {
           const response = await axios.get(
-            `/api/jobs/candidatestatuses/${selectedJob._id}`
+            `${baseUrl}/api/jobs/candidatestatuses/${selectedJob._id}`
           );
           const { candidateStatuses } = response.data;
           setCandidateStatus(candidateStatuses);
