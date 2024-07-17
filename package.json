@@ -48,7 +48,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "https://nextgenjobs-backend.onrender.com/",
   "devDependencies": {
     "tailwindcss": "^3.4.4"
   }
