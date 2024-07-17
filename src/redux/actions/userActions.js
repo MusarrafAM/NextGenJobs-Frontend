@@ -1,11 +1,12 @@
 import axios from "axios";
 import { message } from "antd";
+import { baseUrl } from "../../constants/constant";
 
 export const registerUser = (values) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    await axios.post("/api/users/register", values);
+    await axios.post(`${baseUrl}/api/users/register`, values);
     message.success("User Registered Successfully");
     setTimeout(() => {
       window.location.href = "/login";
@@ -26,7 +27,7 @@ export const loginUser = (values) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    const user = await axios.post("https://nextgenjobs-backend.onrender.com/api/users/login", values);
+    const user = await axios.post(`${baseUrl}/api/users/login`, values);
     message.success("Login success");
     localStorage.setItem("user", JSON.stringify(user.data));
     setTimeout(() => {
@@ -47,7 +48,7 @@ export const updateUser = (values) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    const user = await axios.post("/api/users/update", values);
+    const user = await axios.post(`${baseUrl}/api/users/update`, values);
     message.success("User updated successfully");
     localStorage.setItem("user", JSON.stringify(user.data));
     setTimeout(() => {
@@ -63,7 +64,7 @@ export const updateUser = (values) => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
   try {
-    const response = await axios.get("/api/users/getallusers");
+    const response = await axios.get(`${baseUrl}/api/users/getallusers`);
     dispatch({ type: "GET_ALL_USERS", payload: response.data });
     dispatch({ type: "LOADING", payload: false });
   } catch (error) {
@@ -76,7 +77,7 @@ export const deleteUser = (userId) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    await axios.delete(`/api/users/delete/${userId}`);
+    await axios.delete(`${baseUrl}/api/users/delete/${userId}`);
     message.success("User deleted successfully");
     // dispatch({ type: "DELETE_USER", payload: userId }); // Optionally update local state or Redux store
     dispatch({ type: "LOADING", payload: false });
