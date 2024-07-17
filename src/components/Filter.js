@@ -54,6 +54,7 @@ function Filter() {
               <Option value={3}>3 Years</Option>
               <Option value={4}>4 Years</Option>
               <Option value={5}>5 Years</Option>
+              <Option value={10}>10 Years</Option>
             </Select>
           </Form.Item>
 
@@ -65,6 +66,7 @@ function Filter() {
               <Option value={75000}>75000+</Option>
               <Option value={100000}>100000+</Option>
               <Option value={200000}>200000+</Option>
+              <Option value={500000}>500000+</Option>
             </Select>
           </Form.Item>
           <Button htmlType="submit">Filter</Button>
