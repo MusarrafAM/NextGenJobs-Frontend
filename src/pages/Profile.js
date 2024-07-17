@@ -43,7 +43,7 @@ function Profile() {
     // Simulate uploading delay
     setTimeout(async () => {
       try {
-        const response = await fetch("/api/users/uploadresume", {
+        const response = await fetch(`${baseUrl}/api/users/uploadresume`, {
           method: "POST",
           body: formData,
         });
