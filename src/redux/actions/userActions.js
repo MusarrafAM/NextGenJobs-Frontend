@@ -26,7 +26,7 @@ export const loginUser = (values) => async (dispatch) => {
   dispatch({ type: "LOADING", payload: true });
 
   try {
-    const user = await axios.post("/api/users/login", values);
+    const user = await axios.post("https://nextgenjobs-backend.onrender.com/api/users/login", values);
     message.success("Login success");
     localStorage.setItem("user", JSON.stringify(user.data));
     setTimeout(() => {
