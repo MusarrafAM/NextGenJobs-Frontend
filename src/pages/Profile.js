@@ -4,11 +4,12 @@ import { Row, Col, Form, Tabs, Input, Button, Upload, message  } from "antd";
 import {useDispatch} from 'react-redux'
 import { updateUser } from "../redux/actions/userActions";
 import axios from "axios";
+import { baseUrl } from "../constants/constant";
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 
 function Profile() {
-  const baseBackendUrl = "http://localhost:5000/"
+  const baseBackendUrl = `${baseUrl}/`
   const [personalInfo, setPersonalInfo] = useState();
   const [activeTab, setActiveTab] = useState("1");
   const [resumePath, setResumePath] = useState('');
@@ -70,7 +71,7 @@ function Profile() {
 
   const fetchResumePath = async () => {
     try {
-      const response = await axios.get("/api/users/resume", {
+      const response = await axios.get(`${baseUrl}/api/users/resume`, {
         params: { userId: user._id }, // Pass userId as query parameter
       });
       const { resume } = response.data; // Assuming your API returns resume path
