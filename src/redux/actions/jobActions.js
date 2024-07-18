@@ -65,7 +65,7 @@ export const applyJob = (job) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   // Check if user has updated bio
-  if (!user.email) {
+  if (!user.education) {
     // Redirect to profile page or any other action you want
     message.error("Please update your profile before applying for jobs");
     setTimeout(() => {
