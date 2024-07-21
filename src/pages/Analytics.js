@@ -158,7 +158,7 @@ const Analytics = () => {
   //JobSeeker
   const sourceDataJobSeekerJobStatus = [
     {
-      label: "Applications sent",
+      label: "Total Applications sent",
       value: UserAppliedJobs.length,
       color: "rgba(43, 63, 229, 0.8)",
     },
