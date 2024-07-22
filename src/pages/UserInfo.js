@@ -3,18 +3,19 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Button, Form, Tag } from "antd";
 import DefaultLayout from "../components/DefaultLayout";
+import { baseUrl } from "../constants/constant";
 
 const UserInfo = () => {
   const { id } = useParams();
   const { users } = useSelector((state) => state.usersReducer);
   const user = users.find((user) => user._id === id);
+  const baseBackendUrl = `${baseUrl}/`
 
   const handleDownloadResume = () => {
     if (user?.resume) {
-      window.open(`http://localhost:5000/${user.resume}`, "_blank");
+      window.open(`${baseUrl}/${user.resume}`, "_blank");
     }
   };
-
   return (
     <div>
       <DefaultLayout>
