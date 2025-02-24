@@ -34,3 +34,15 @@ NextGen Jobs is a **modern job portal** designed to connect **job seekers** with
 
 ## 🎯 Why NextGen Jobs?
 Unlike traditional job portals, NextGen Jobs ensures **better job authenticity**, **user security**, and a **smooth hiring process** through admin approval mechanisms, insightful analytics, and an intuitive user experience.
+
+
+# Screenshot
+![Image](https://github.com/user-attachments/assets/2605d21b-9960-48f5-9e79-cb5624c33245)
+![Image](https://github.com/user-attachments/assets/f02ffd50-935f-477e-80ca-bfabed9e50fb)
+![Image](https://github.com/user-attachments/assets/db358482-94a9-4b2f-bc8e-bfceb4ee29b0)
+![Image](https://github.com/user-attachments/assets/d5479e94-e9c6-46a6-94fe-8bc2b99e43ae)
+![Image](https://github.com/user-attachments/assets/0e7afd89-6f44-435b-9b84-e768e2d9c0e0)
+![Image](https://github.com/user-attachments/assets/b77ffc00-ae7b-47a5-a629-e3be6e55d6e3)
+![Image](https://github.com/user-attachments/assets/bd1ae601-dd38-4c20-b350-cf31ac97c8ed)
+![Image](https://github.com/user-attachments/assets/6c71578b-b2cd-4b67-bc5d-52066bb6739b)
+
