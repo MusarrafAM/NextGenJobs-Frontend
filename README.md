@@ -1,6 +1,10 @@
 # NextGen Jobs
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green?logo=vercel)](https://nextgen-jobs.vercel.app)
+Deoployed Link = https://nextgen-jobs.vercel.app
+
+Demostration Video = https://youtu.be/1PnHwARC0wQ
+
+Demostration Video (Admin Poratal) = https://youtu.be/IxuOFny5CgM
 
 [![Backend Repository](https://img.shields.io/badge/GitHub-Backend-blue?logo=github)](https://github.com/MusarrafAM/NextGenJobs-Backend)
 
@@ -27,8 +31,8 @@ NextGen Jobs is a **modern job portal** designed to connect **job seekers** with
 - Ensure only **verified job listings** are displayed to **reduce spam**.
 
 ## 🛠️ Tech Stack
-- **Frontend:** React, Tailwind CSS, AntDesign
-- **Backend:** Node.js, Express.js
+- **Frontend:** React js, Tailwind CSS, Ant Design, Redux, React Router, Chart js
+- **Backend:** Node.js, Express.js, Nodemailer, Bcrypt, Multer
 - **Database:** MongoDB
 - **Deployment:** Vercel, Render
 
