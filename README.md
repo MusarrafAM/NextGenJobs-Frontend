@@ -1,10 +1,10 @@
 # NextGen Jobs
 
-Deoployed Link = https://nextgen-jobs.vercel.app
+Deployed Link = https://nextgen-jobs.vercel.app
 
-Demostration Video = https://youtu.be/1PnHwARC0wQ
+Demonstration Video = https://youtu.be/1PnHwARC0wQ
 
-Demostration Video (Admin Poratal) = https://youtu.be/IxuOFny5CgM
+Demonstration Video (Admin Poratal) = https://youtu.be/IxuOFny5CgM
 
 [![Backend Repository](https://img.shields.io/badge/GitHub-Backend-blue?logo=github)](https://github.com/MusarrafAM/NextGenJobs-Backend)
 
