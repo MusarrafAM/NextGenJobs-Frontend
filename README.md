@@ -41,6 +41,7 @@ Unlike traditional job portals, NextGen Jobs ensures **better job authenticity**
 
 
 # Screenshot
+![Image](https://github.com/user-attachments/assets/3bfb2d32-9eea-468a-b200-8fb8edef90d9)
 ![Image](https://github.com/user-attachments/assets/2605d21b-9960-48f5-9e79-cb5624c33245)
 ![Image](https://github.com/user-attachments/assets/f02ffd50-935f-477e-80ca-bfabed9e50fb)
 ![Image](https://github.com/user-attachments/assets/db358482-94a9-4b2f-bc8e-bfceb4ee29b0)
