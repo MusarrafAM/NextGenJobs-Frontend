@@ -109,6 +109,7 @@ git clone https://github.com/MusarrafAM/NextGenJobs-Backend.git
 
 ### 2. Backend Setup
 
+```bash
 cd NextGenJobs-Backend
 npm install
 # Create .env file and add:
@@ -117,13 +118,15 @@ npm install
 # EMAIL_USER=your_email
 # EMAIL_PASS=your_app_password
 npm run dev
-
+```
 
 ### 3. Frontend Setup
+
+```bash
 cd NextGenJobs-Frontend
 npm install
 npm run dev
-
+```
 
 # Screenshot
 ![Image](https://github.com/user-attachments/assets/3bfb2d32-9eea-468a-b200-8fb8edef90d9)
@@ -141,7 +144,7 @@ npm run dev
 
 For any inquiries, suggestions, or feedback:
 
-- 📧 **Email:** musarrafam@gmail.com  
-- 📱 **Phone:** +94 XXX XXX XXX
+- 📧 **Email:** muhammedmusarraf@gmail.com  
+- 📱 **Phone:** +94 779434493
 
 
