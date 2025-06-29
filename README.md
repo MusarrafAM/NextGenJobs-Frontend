@@ -94,6 +94,36 @@
 
 ---
 
+## 💻 Running the Project Locally
+
+### Prerequisites
+- Node.js
+- MongoDB
+- Vite (for frontend)
+
+### 1. Clone Repositories
+```bash
+git clone https://github.com/MusarrafAM/NextGenJobs-Frontend.git
+git clone https://github.com/MusarrafAM/NextGenJobs-Backend.git
+```
+
+### 2. Backend Setup
+
+cd NextGenJobs-Backend
+npm install
+# Create .env file and add:
+# MONGO_URI=your_mongo_connection
+# JWT_SECRET=your_jwt_secret
+# EMAIL_USER=your_email
+# EMAIL_PASS=your_app_password
+npm run dev
+
+
+### 3. Frontend Setup
+cd NextGenJobs-Frontend
+npm install
+npm run dev
+
 
 # Screenshot
 ![Image](https://github.com/user-attachments/assets/3bfb2d32-9eea-468a-b200-8fb8edef90d9)
@@ -105,4 +135,13 @@
 ![Image](https://github.com/user-attachments/assets/b77ffc00-ae7b-47a5-a629-e3be6e55d6e3)
 ![Image](https://github.com/user-attachments/assets/bd1ae601-dd38-4c20-b350-cf31ac97c8ed)
 ![Image](https://github.com/user-attachments/assets/6c71578b-b2cd-4b67-bc5d-52066bb6739b)
+
+
+## 📬 Contact
+
+For any inquiries, suggestions, or feedback:
+
+- 📧 **Email:** musarrafam@gmail.com  
+- 📱 **Phone:** +94 XXX XXX XXX
+
 
